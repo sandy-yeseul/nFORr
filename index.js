@@ -18,18 +18,25 @@ app.use(bodyParser.urlencoded({extended: true}))
 app.get('/', (req, res) =>{
     res.send('hello,,,,')
 });
+//ANCHOR add book
 app.post('/book', (req, res) =>{
-    console.log(req.body);
     const book = new Book(req.body);
     book.save((err, book) =>{
         if(err) return res.json({success: false, err});
         return res.status(201).json({success: true, book})
     })
 })
+//ANCHOR view book list
 app.get('/book', (req, res)=>{
     Book.get(function(err, books){
         if(err) return res.json({success: false, err});
         return res.json({success: true, message: "Successfully get book list", data: books});
     })
 })
-app.listen(port, () => console.log(`Portfolio application on port ${port}`));
+//ANCHOR view a book
+app.get('book:id', (req, res) =>{
+    
+})
+//ANCHOR edit book
+//ANCHOR delete book
+app.listen(port, () => console.log(`Portfolio application on port ${port}`)); 
