@@ -34,9 +34,12 @@ app.get('/book', (req, res)=>{
     })
 })
 //ANCHOR view a book
-app.get('book:id', (req, res) =>{
-    
-})
+app.get('/book:id', (req, res) =>{
+    Book.findOne(req.param.id, (err, book)=>{
+        if(err) return res.json({success: false, err});
+        return res.json({success: true, message: "Successfully get requested book: ", data: book})
+    });
+});
 //ANCHOR edit book
 //ANCHOR delete book
 app.listen(port, () => console.log(`Portfolio application on port ${port}`)); 
