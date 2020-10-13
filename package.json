@@ -11,10 +11,12 @@
   "dependencies": {
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
-    "mongoose": "^5.10.9"
+    "mongoose": "^5.10.9",
+    "react": "^16.13.1"
   },
   "devDependencies": {
     "dotenv": "^8.2.0",
+    "kill-port": "^1.6.1",
     "nodemon": "^2.0.4"
   }
 }
