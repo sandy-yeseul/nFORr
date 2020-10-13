@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
 const Book = require('./models/book');
+const { json } = require('body-parser');
 const app = express();
 const port = 3028;
 
@@ -34,16 +35,16 @@ app.get('/book', (req, res)=>{
     })
 })
 //ANCHOR view a book
-app.get('/book:id', (req, res) =>{
-    Book.findOne(req.param.id, (err, book)=>{
+app.get('/book/:bookId', (req, res) =>{
+    Book.findOne(req.params.bookId, (err, book)=>{
         if(err) return res.json({success: false, err});
         return res.json({success: true, message: "Successfully get requested book: ", data: book})
     });
 });
 //ANCHOR edit book
-app.patch('/book:id', (req, res) => {
+app.patch('/book/:bookId', (req, res) => {
     // REVIEW why req.param.id? why not req.params.id? params <- cause error cannot find book
-    Book.findOne(req.param.id, (err, book) =>{
+    Book.findOne(req.params.bookId, (err, book) =>{
         if(err) return res.json({success: false, message: "error to find a book",data:err});
         //REVIEW  check this
         book.title = req.body.title ? req.body.title : book.title;
@@ -60,4 +61,12 @@ app.patch('/book:id', (req, res) => {
     });
 })
 //ANCHOR delete book
+app.delete('/book/:bookId', async (req, res)=>{
+    try{
+        const removedBook = await Book.remove({_id: req.params.bookId});
+        res.status(201).json({success: true, message:"successfully deleted", data:removedBook});
+    } catch(err){
+        res.json({success: false, message:"error on deleting book", data:err});
+    }
+})
 app.listen(port, () => console.log(`Portfolio application on port ${port}`)); 
