@@ -41,5 +41,23 @@ app.get('/book:id', (req, res) =>{
     });
 });
 //ANCHOR edit book
+app.patch('/book:id', (req, res) => {
+    // REVIEW why req.param.id? why not req.params.id? params <- cause error cannot find book
+    Book.findOne(req.param.id, (err, book) =>{
+        if(err) return res.json({success: false, message: "error to find a book",data:err});
+        //REVIEW  check this
+        book.title = req.body.title ? req.body.title : book.title;
+        book.author = req.body.author ? req.body.author : book.author;
+        book.publisher = req.body.publisher ? req.body.publisher : book.publisher;
+        book.seller = req.body.seller ? req.body.seller : book.seller;
+        book.price = req.body.price ? req.body.price : book.price;
+        book.publishDate = req.body.publishDate ? req.body.publishDate : book.publishDate;
+
+        book.save((err, book) =>{
+            if(err) res.json({success: false, message: "error to save a book",data:err});
+            return res.status(201).json({success: true, message: "SUccessfully updated book:", book})
+        })
+    });
+})
 //ANCHOR delete book
 app.listen(port, () => console.log(`Portfolio application on port ${port}`)); 
