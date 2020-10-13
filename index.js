@@ -1,15 +1,14 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-
-const bookRouter = require('./routes/bookRouter');
 require('dotenv').config();
 
+const bookRouter = require('./routes/bookRouter');
 const app = express();
-const port = 3028;
+const port = process.env.PORT;
 
 mongoose.connect(process.env.DATABASE_URL, 
-    {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: true})
+    { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: true })
     .then(()=> console.log('Mongodb Connected...'))
     .catch(err => console.log(err));
 
@@ -21,4 +20,5 @@ app.get('/', (req, res) =>{
     res.send('hello,,,,')
 });
 app.use('/book', bookRouter);
+
 app.listen(port, () => console.log(`Portfolio application on port ${port}`)); 
