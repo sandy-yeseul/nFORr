@@ -16,6 +16,11 @@ router.get('/:bookId', async (req, res) =>{
         res.json({success: false, message: "error to find a book",err});
     }
 });
+router.post('/', async(req, res)=>{
+    try{
+        
+    }
+})
 router.patch('/:bookId', async(req, res) => {
     /*
     Book.findOne(req.params.bookId, (err, book) =>{

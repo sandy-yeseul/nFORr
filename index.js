@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 require('dotenv').config();
 
 const bookRouter = require('./server/routes/bookRouter');
@@ -14,6 +15,7 @@ mongoose.connect(process.env.DATABASE_URL,
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}))
+app.use(cors());
 
 // routes
 // REVIEW do i need this?
