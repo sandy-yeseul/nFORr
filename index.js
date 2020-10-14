@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 require('dotenv').config();
 
-const bookRouter = require('./routes/bookRouter');
+const bookRouter = require('./server/routes/bookRouter');
 const app = express();
 const port = process.env.PORT;
 
