@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Header(){
+function Footer(){
     return (
         <footer style={{
             width: '70vw', height: 'max-content', marginRight: 'auto', marginLeft: 'auto', display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around', position: 'absolute', bottom: '0'
@@ -13,4 +13,4 @@ function Header(){
         </footer>
     )
 }
-export default Header;
+export default Footer;

@@ -16,9 +16,14 @@ router.get('/:bookId', async (req, res) =>{
         res.json({success: false, message: "error to find a book",err});
     }
 });
-router.post('/', async(req, res)=>{
+router.post('/', async (req, res) =>{
+    console.log(req.body)
     try{
-        
+        const book = new Book(req.body);
+        const savedBook = await book.save();
+        res.json({success: true, message: "successfully added book", savedBook})
+    } catch(err){
+        res.json({success: false, message: "fail to add a book", err})
     }
 })
 router.patch('/:bookId', async(req, res) => {

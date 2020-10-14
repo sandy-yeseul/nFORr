@@ -5,12 +5,12 @@ Route} from 'react-router-dom';
 //import logo from './logo.svg';
 import './App.css';
 
-import Header from '../Header';
-import Footer from '../Footer';
-import LandingPage from '../Pages/Landing';
-import ListPage from '../Pages/List';
-import NewBookPage from '../Pages/CreateBook';
-import AboutPage from '../Pages/About';
+import Header from '../Header/index';
+import Footer from '../Footer/index';
+import LandingPage from '../Pages/Landing/index';
+import ListPage from '../Pages/List/index';
+import NewBookPage from '../Pages/CreateBook/index';
+import AboutPage from '../Pages/About/index';
 
 function App() {
   return (
