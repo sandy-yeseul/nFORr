@@ -5,11 +5,12 @@ Route} from 'react-router-dom';
 //import logo from './logo.svg';
 import './App.css';
 
-import Header from './components/header';
-import Footer from './components/footer';
-import LandingPage from './components/landing';
-import ListPage from './components/list';
-import NewBook from './components/createBook';
+import Header from '../Header';
+import Footer from '../Footer';
+import LandingPage from '../Pages/Landing';
+import ListPage from '../Pages/List';
+import NewBookPage from '../Pages/CreateBook';
+import AboutPage from '../Pages/About';
 
 function App() {
   return (
@@ -19,8 +20,8 @@ function App() {
           <Switch>
             <Route exact path='/' component={LandingPage} />
             <Route exact path='/book' component={ListPage} />
-            <Route exact path='/book/new' component={NewBook} />
-            <Route exact path='/about' />
+            <Route exact path='/book/new' component={NewBookPage} />
+            <Route exact path='/about' component={AboutPage} />
             <Route exact path='/search' />
           </Switch>
           < Footer />
