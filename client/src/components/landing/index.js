@@ -1,6 +1,11 @@
-import react, {useEffect} from 'react';
-import axios from 'axios';
+import React, {useEffect} from 'react';
 import {withRouter} from 'react-router-dom';
 
-function LandingPage(props){
+function LandingPage(){
+    return (
+        <div style={{marginTop: '10vh'}}>
+            Welcome! it's homepage!
+        </div>
+    )
 }
+export default withRouter(LandingPage);

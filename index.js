@@ -16,6 +16,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}))
 
 // routes
+// REVIEW do i need this?
 app.get('/', (req, res) =>{
     res.send('hello,,,,')
 });
