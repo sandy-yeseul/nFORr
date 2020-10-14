@@ -1,6 +1,6 @@
 import React from 'react';
 
-import MakeList from '../../Common/makeList';
+import MakeList from '../../Common/List';
 
 export default function List(){
     const listItems = ["nightmare", "harely", "curiosity"];
