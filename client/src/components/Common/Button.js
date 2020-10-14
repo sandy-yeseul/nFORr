@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 function Button(props){
-    const [szie] = useState(props.size);
+    const [size] = useState(props.size);
     const [variant] = useState(props.variant);
     return(<button className={`btn-${variant} btn-${size}`}>{props.children}</button>);
 }

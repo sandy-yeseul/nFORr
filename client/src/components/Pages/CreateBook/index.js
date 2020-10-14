@@ -1,25 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 function Form() {
     const [Title, setTitle] = useState('');
     const [Author, setAuthor] = useState('');
-    
-    const onTitleHandler = (event) => {setTitle(event.currentTarget.value)}
-    const onAuthorHandler = (event) => {setAuthor(event.currentTarget.value)}
-    const onSubmitHandler = (event) =>{
-        event.preventDefault();
-        console.log('Title: ', Title, '\nAuthor: ', Author);
+
+    const submitHandler = (e) =>{
+        e.preventDefault();
+        console.log(Title);
+        setTitle('');
+        setAuthor('');
     }
-    return(
-        <form onSubmit={onSubmitHandler}>
-            <label>Title</label>
-            <input type='text' value={Title} onChange={onTitleHandler} />
-            
-            <label>Author</label>
-            <input type='text' value={Author} onChange={onAuthorHandler} />
-            <button type='submit'>Submit</button>
-        </form>
-    );
-    
+
+  return (
+    <form onSubmit={submitHandler}>
+        <input type="text" value={Title} onChange={(e) => setTitle(e.target.value)} required placeholder="Title" />
+        <input type="text" value={Author} onChange={(e) => setAuthor(e.target.value)} required placeholder="Author" />
+        <input type="submit" value="서브밋" />
+    </form>
+  );
 }
 export default Form;
+
