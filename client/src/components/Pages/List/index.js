@@ -6,15 +6,24 @@ function List(){
     useEffect(()=>{
         axios.get('http://localhost:3028/book')
             .then((res) => res.data.data)
-            .then((json) => setItems(json[0].title))
-            .then(console.log(1));
-    }, [item])
+            .then((obj) =>{
+                let o = []
+                for(var i=0; i<Object.keys(obj).length; i++){
+                    o[i] = obj[i].title;
+                }
+                return o;
+            })
+            .then((arr) => setItems(arr));
+
+        return console.log("wow");
+    }, [])
     return(
-        <div>
-            {item && <div>{item}</div>}
-        </div>
+       <div>
+           {item && item.map((i, index) =>{
+               return <li key={index}>{i}</li>
+           })}
+       </div>
     )
 }
 
 export default List;
-
