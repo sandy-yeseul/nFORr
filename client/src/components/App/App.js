@@ -6,7 +6,7 @@ Route} from 'react-router-dom';
 import './App.css';
 
 import {Header, Footer} from '../Common';
-import {LandingPage, ListPage, ViewBookPage, AboutPage, SearchPage, CreateBookPage} from '../Pages'
+import {LandingPage, ListPage, AboutPage, SearchPage, CreateBookPage} from '../Pages'
 
 function App() {
   return (

@@ -1,4 +1,3 @@
-import React from 'react';
 import AboutPage from './About';
 import LandingPage from './Landing';
 import ViewBookPage from './ViewBook';
