@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from 'axios';
 
-function Form() {
+function CreateBookPage() {
     const [title, setTitle] = useState('');
     const [author, setAuthor] = useState('');
     const [publisher, setPublisher] = useState('');
@@ -22,7 +22,7 @@ function Form() {
         console.log(JSON.stringify(body))
         axios({
             method: "POST",
-            url: "http://localhost:3028/book",
+            url: "http://localhost:3028/books",
             data: body
         }).then((res) => console.log(res.data))
         //TODO database can't read this file
@@ -62,5 +62,5 @@ function Form() {
     </form>
   );
 }
-export default Form;
+export default CreateBookPage;
 

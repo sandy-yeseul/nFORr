@@ -22,6 +22,6 @@ app.use(cors());
 app.get('/', (req, res) =>{
     res.send('hello,,,,')
 });
-app.use('/book', bookRouter);
+app.use('/books', bookRouter);
 
 app.listen(port, () => console.log(`Portfolio application on port ${port}`)); 

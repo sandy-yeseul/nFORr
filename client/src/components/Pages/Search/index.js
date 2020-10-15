@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 
-function Search(){
+function SearchPage(){
     return(
         <form>
             <input placeholder="검색"/>
@@ -9,4 +9,4 @@ function Search(){
         </form>
     );
 }
-export default Search;
+export default SearchPage;

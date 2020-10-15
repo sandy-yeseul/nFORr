@@ -1,9 +1,9 @@
 import React from 'react';
-function About(){
+function AboutPage(){
     return(
         <p>
             If you encounter any problem, please contact yeseulkang0328@gmail.com
         </p>
     )
 }
-export default About;
+export default AboutPage;
