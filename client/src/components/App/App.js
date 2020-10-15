@@ -11,17 +11,15 @@ import {LandingPage, ListPage, AboutPage, SearchPage, CreateBookPage} from '../P
 function App() {
   return (
     <Router>
-      <div className="App">
-          <Header />
-          <Switch>
-            <Route exact path='/' component={LandingPage} />
-            <Route exact path='/books' component={ListPage} />
-            <Route exact path='/books/new' component={CreateBookPage} />
-            <Route exact path='/about' component={AboutPage} />
-            <Route exact path='/search' component={SearchPage} />
-          </Switch>
-          < Footer />
-      </div>
+      <Header />
+      <Switch>
+        <Route exact path='/' component={LandingPage} />
+        <Route exact path='/books' component={ListPage} />
+        <Route exact path='/books/new' component={CreateBookPage} />
+        <Route exact path='/about' component={AboutPage} />
+        <Route exact path='/search' component={SearchPage} />
+      </Switch>
+      < Footer />
     </Router>
   );
 }
