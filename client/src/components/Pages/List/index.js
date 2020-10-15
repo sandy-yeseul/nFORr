@@ -7,6 +7,7 @@ function List(){
         axios.get('http://localhost:3028/book')
             .then((res) => res.data.data)
             .then((obj) =>{
+                //REVIEW this sucks
                 let o = []
                 for(var i=0; i<Object.keys(obj).length; i++){
                     o[i] = obj[i].title;

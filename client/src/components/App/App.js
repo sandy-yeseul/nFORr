@@ -11,6 +11,7 @@ import LandingPage from '../Pages/Landing/index';
 import ListPage from '../Pages/List/index';
 import NewBookPage from '../Pages/CreateBook/index';
 import AboutPage from '../Pages/About/index';
+import SearchPage from '../Pages/Search/index';
 
 function App() {
   return (
@@ -22,7 +23,7 @@ function App() {
             <Route exact path='/book' component={ListPage} />
             <Route exact path='/book/new' component={NewBookPage} />
             <Route exact path='/about' component={AboutPage} />
-            <Route exact path='/search' />
+            <Route exact path='/search' component={SearchPage} />
           </Switch>
           < Footer />
       </div>
