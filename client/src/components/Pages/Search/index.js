@@ -1,12 +1,44 @@
-import React from 'react';
-// import axios from 'axios';
+import React, {useState} from 'react';
+import axios from 'axios';
+import {List} from '../../Common';
 
 function SearchPage(){
-    return(
-        <form>
-            <input placeholder="검색"/>
-            <input type="button" value ="검색하기" />
-        </form>
-    );
+    const [Author, setAuthor] = useState('');
+    const [Data, setData] = useState(null);
+    const SubmitHandler = (e) =>{
+        e.preventDefault();
+        axios.get(`http://localhost:3028/books?author=${Author}`)
+            .then((res) => res.data.data)
+            .then((dt) => {
+                let itemObj = [];
+                for(var i=0; i<Object.keys(dt).length; i++){
+                    if(dt[i]._id.length>0){
+                        itemObj[i] = {id: dt[i]._id, title: dt[i].title};
+                    }
+                }
+                return itemObj;
+            })
+            .then((itemObj) => setData(itemObj));
+    }
+    if(!Data){
+        return(
+            <>
+            <form onSubmit={SubmitHandler}>
+                <input value={Author} onChange={(e) => setAuthor(e.target.value)} placeholder="검색"/>
+                <input type="submit" value ="검색하기" />
+            </form>
+            </>
+        )
+    } else  {
+        return(
+        <>
+            <form onSubmit={SubmitHandler}>
+                <input value={Author} onChange={(e) => setAuthor(e.target.value)} placeholder="검색"/>
+                <input type="submit" value ="검색하기" />
+            </form>
+            <List obj={Data} />
+        </>
+        )
+    }
 }
 export default SearchPage;
