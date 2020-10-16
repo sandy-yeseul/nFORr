@@ -3,10 +3,26 @@ const router = express.Router();
 const Book = require('../models/book');
 
 router.get('/', (req, res)=>{
-    Book.get(function(err, books){
-        if(err)  res.json({success: false, err});
-        res.json({success: true, message: "Successfully get book list", data: books});
-    })
+    try{
+        // let title = req.query.title;
+        //TODO later set if user search search both title and author
+        let author = req.query.author;
+        if(!(author)){
+            console.log('no search')
+            Book.get(function(err, books){
+                if(err)  res.json({success: false, err});
+                res.json({success: true, message: "Successfully get book list", data: books});
+            })
+        } else {
+            console.log(`in search: ${author}`)
+            Book.find({author: `${author}`}, (err, books) =>{
+                if(err) res.json({err: err});
+                res.json({data: books});
+            })
+        }
+    } catch(err){
+        console.log("not in search")
+    }
 })
 router.get('/:bookId', async (req, res) =>{
     try{

@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import {useParams} from 'react-router-dom';
+import {Delete} from '../../Common';
 
 function ViewBookPage(props){
     const [data, setData] = useState();
@@ -18,11 +19,12 @@ function ViewBookPage(props){
         }
     }, []);
     return(
-        <>
+        <div>
         {data && Object.keys(data).map(item =>{
             return <p>{item}: {data[item]}</p>
         })}
-        </>
+        <Delete id={id}/>
+        </div>
     );
 }
 export default ViewBookPage;

@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import {Link} from 'react-router-dom';
+import {List} from '../../Common';
 
 function ListPage(){
     const [Items, setItems] = useState([]);
@@ -30,9 +31,10 @@ function ListPage(){
                 return <li key={item.id}>{item.title}</li>
             })} */}
             <p>shut your mouth</p>
-            {Items && Items.map(item =>{
+            {/* {Items && Items.map(item =>{
                 return <Link to={`/books/${item.id}`}><li key={item.title}>{item.title}</li></Link>
-            })}
+            })} */}
+            <List obj={Items} />
         </div>
     )
 }
