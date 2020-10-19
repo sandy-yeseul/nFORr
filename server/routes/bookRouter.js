@@ -8,10 +8,10 @@ router.get('/', (req, res)=>{
         //TODO later set if user search search both title and author
         let author = req.query.author;
         if(!(author)){
-            console.log('no search')
+            console.log('not in search')
             Book.get(function(err, books){
                 if(err) res.status(500).json({data:err});
-                console.log("Successfully get book list");
+                console.log("Got book list");
                 res.status(200).json({data: books});
             })
         } else {
@@ -28,7 +28,7 @@ router.get('/', (req, res)=>{
 router.get('/:bookId', async (req, res) =>{
     try{
         const book = await Book.findById(req.params.bookId);
-        console.log("successfully get book")
+        console.log("Got book")
         res.status(200).json({data:book});
     } catch (err){
         console.log("error to find a book");
@@ -40,10 +40,10 @@ router.post('/', async (req, res) =>{
     try{
         const book = new Book(req.body);
         const savedBook = await book.save();
-        console.log("successfully added book");
+        console.log("Added book");
         res.status(201).json({data:savedBook});
     } catch(err){
-        console.log("fail to add a book")
+        console.log("failed to add a book")
         res.status(400).json({data:err})
     }
 })
@@ -70,7 +70,7 @@ router.patch('/:bookId', async(req, res) => {
             {_id: req.params.bookId},
             // REVIEW should i repeat all the steps i had?
             { $set: {title: req.body.title}});
-            console.log("successfully udpated");
+            console.log("Udpated");
             res.status(201).json({data:updatedBook});
     } catch(err) {
         console.log("error to find a book");
@@ -79,8 +79,9 @@ router.patch('/:bookId', async(req, res) => {
 })
 router.delete('/:bookId', async (req, res)=>{
     try{
-        const removedBook = await Book.remove({_id: req.params.bookId});
-        console.log("successfully deleted")
+        const id =  req.params.bookId
+        const removedBook = await Book.deleteOne({_id: id});
+        console.log("Deleted")
         res.status(201).json({data:removedBook});
     } catch(err){
         console.log("error on deleting book");

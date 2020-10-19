@@ -11,8 +11,8 @@ function ViewBookPage(props){
         try{
             axios.get(`http://localhost:3028/books/${id}`)
                 .then((res) => {
-                    if(res) console.log(res.data.book);
-                    setData(res.data.book);
+                    if(res) console.log(res.data.data);
+                    setData(res.data.data);
                 })
         } catch(err){
             console.log('nothing!')
