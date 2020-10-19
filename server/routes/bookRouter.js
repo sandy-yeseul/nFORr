@@ -10,26 +10,29 @@ router.get('/', (req, res)=>{
         if(!(author)){
             console.log('no search')
             Book.get(function(err, books){
-                if(err)  res.json({success: false, err});
-                res.json({success: true, message: "Successfully get book list", data: books});
+                if(err) res.status(500).json({data:err});
+                console.log("Successfully get book list");
+                res.status(200).json({data: books});
             })
         } else {
             console.log(`in search: ${author}`)
             Book.find({author: `${author}`}, (err, books) =>{
-                if(err) res.json({err: err});
-                res.json({data: books});
+                if(err) res.status(500).json({data:err});
+                res.status(200).json({data: books});
             })
         }
     } catch(err){
-        console.log("not in search")
+        console.log("some error in getting list of books")
     }
 })
 router.get('/:bookId', async (req, res) =>{
     try{
         const book = await Book.findById(req.params.bookId);
-        res.json({success: true, message: "successfully get book", book});
+        console.log("successfully get book")
+        res.status(200).json({data:book});
     } catch (err){
-        res.json({success: false, message: "error to find a book",err});
+        console.log("error to find a book");
+        res.status(500).json({data:err});
     }
 });
 router.post('/', async (req, res) =>{
@@ -37,9 +40,11 @@ router.post('/', async (req, res) =>{
     try{
         const book = new Book(req.body);
         const savedBook = await book.save();
-        res.json({success: true, message: "successfully added book", savedBook})
+        console.log("successfully added book");
+        res.status(201).json({data:savedBook});
     } catch(err){
-        res.json({success: false, message: "fail to add a book", err})
+        console.log("fail to add a book")
+        res.status(400).json({data:err})
     }
 })
 router.patch('/:bookId', async(req, res) => {
@@ -65,17 +70,21 @@ router.patch('/:bookId', async(req, res) => {
             {_id: req.params.bookId},
             // REVIEW should i repeat all the steps i had?
             { $set: {title: req.body.title}});
-            res.json({success: true, message: "successfully udpated", updatedBook});
+            console.log("successfully udpated");
+            res.status(201).json({data:updatedBook});
     } catch(err) {
-        res.json({success: false, message: "error to find a book",data:err})
+        console.log("error to find a book");
+        res.status(400).json({data:err})
     }
 })
 router.delete('/:bookId', async (req, res)=>{
     try{
         const removedBook = await Book.remove({_id: req.params.bookId});
-        res.status(201).json({success: true, message:"successfully deleted", data:removedBook});
+        console.log("successfully deleted")
+        res.status(201).json({data:removedBook});
     } catch(err){
-        res.json({success: false, message:"error on deleting book", data:err});
+        console.log("error on deleting book");
+        res.status(400).json({data:err});
     }
 })
 

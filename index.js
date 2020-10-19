@@ -20,7 +20,7 @@ app.use(cors());
 // routes
 // REVIEW do i need this?
 app.get('/', (req, res) =>{
-    res.send('hello,,,,')
+    res.status(200).send(`hello... the server is listening at ${port}`);
 });
 app.use('/books', bookRouter);
 
