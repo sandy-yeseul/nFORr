@@ -55,7 +55,7 @@ router.post('/', async (req, res) =>{
         res.status(400).json({data:err})
     }
 })
-router.patch('/:bookId', async(req, res) => {
+router.put('/:bookId', async(req, res) => {
     /*
     Book.findOne(req.params.bookId, (err, book) =>{
         if(err) res.json({success: false, message: "error to find a book",data:err});
@@ -73,11 +73,21 @@ router.patch('/:bookId', async(req, res) => {
         })
     });
     */
+   const id = req.params.bookId;
+   const item = {
+       title: req.body.title,
+       author: req.body.author,
+       publisher: req.body.publisher,
+       seller: req.body.seller,
+       price: req.body.price,
+       publishDate: req.body.publishDate 
+   }
     try{
+
         const updatedBook = await Book.updateOne(
-            {_id: req.params.bookId},
+            {_id: id},
             // REVIEW should i repeat all the steps i had?
-            { $set: {title: req.body.title}});
+            { $set: item});
             console.log("Udpated");
             res.status(201).json({data:updatedBook});
     } catch(err) {

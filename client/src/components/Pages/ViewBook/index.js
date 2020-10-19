@@ -23,6 +23,7 @@ function ViewBookPage(props){
         {data && Object.keys(data).map(item =>{
             return <p>{item}: {data[item]}</p>
         })}
+        <a href={`/books/update/${id}`}>Update</a>
         <Delete id={id}/>
         </div>
     );

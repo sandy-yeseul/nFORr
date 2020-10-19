@@ -25,23 +25,6 @@ function CreateBookPage() {
             url: "http://localhost:3028/books",
             data: body
         }).then((res) => console.log(res.data))
-        //TODO database can't read this file
-        // 못읽는게 아니라 아예 아무것도 안감 바디가 텅비어서 감
-        // axios 이용하니까 바디는 간다 근데 왜 response 가 안와ㅣ
-        /*
-        fetch('http://localhost:3028/book', {
-            method: "POST",
-            body: JSON.stringify(body)
-        }).then(
-            (res) => {
-                if(res.status === 'success'){
-                    alert("GReat");
-                } else if(res.status === 'fail'){
-                    alert("FAIL!");
-                }
-            }
-        );
-        */
     }
 
   return (

@@ -5,14 +5,14 @@ function MakeList(props){
     const obj = props.obj;
     try{
         if(!(obj[0].title) && !(obj[0].id)){
-            return(
-                <p>There's error
-                    <Link to={`/`}></Link>
-                </p>
-            )
+            throw new Error('no props yet');
         } 
     } catch(err){
-        console.log(err);
+        return(
+            <p>There's error
+                <Link to={`/`}></Link>
+            </p>
+        )
     }
     return(
         <>

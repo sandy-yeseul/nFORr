@@ -5,7 +5,7 @@ Route} from 'react-router-dom';
 //import logo from './logo.svg';
 import './App.css';
 import {Header, Footer} from '../Common';
-import {LandingPage, ListPage, AboutPage, SearchPage, CreateBookPage, ViewBookPage} from '../Pages'
+import {LandingPage, ListPage, AboutPage, SearchPage, CreateBookPage, ViewBookPage, UpdateBookPage} from '../Pages'
 
 function App() {
   return (
@@ -18,6 +18,7 @@ function App() {
         <Route exact path='/about' component={AboutPage} />
         <Route exact path='/search' component={SearchPage} />
         <Route exact path='/books/:bookId' component={ViewBookPage} />
+        <Route exact path='/books/update/:bookId' component={UpdateBookPage} />
       </Switch>
       < Footer />
     </Router>
