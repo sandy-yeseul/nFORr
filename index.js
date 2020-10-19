@@ -22,9 +22,9 @@ app.use(cors());
 // app.get('/', (req, res) =>{
 //     res.status(200).send(`hello... the server is listening at ${port}`);
 // });
-app.get('/', callback);
+app.get('/', callback());
+// app.get('/books', callback(get))
 // const Book = require('../models/book');
-
 /*
 app.get('/books/', (req, res)=>{
     try{
