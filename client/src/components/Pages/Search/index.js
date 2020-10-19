@@ -4,7 +4,7 @@ import {List} from '../../Common';
 
 function SearchPage(){
     const [Author, setAuthor] = useState('');
-    const [Data, setData] = useState(null);
+    const [Data, setData] = useState([]);
     const SubmitHandler = (e) =>{
         e.preventDefault();
         axios.get(`http://localhost:3028/books?author=${Author}`)
@@ -20,25 +20,16 @@ function SearchPage(){
             })
             .then((itemObj) => setData(itemObj));
     }
-    if(!Data){
-        return(
-            <>
-            <form onSubmit={SubmitHandler}>
-                <input value={Author} onChange={(e) => setAuthor(e.target.value)} placeholder="검색"/>
-                <input type="submit" value ="검색하기" />
-            </form>
-            </>
-        )
-    } else  {
-        return(
+    return (
         <>
             <form onSubmit={SubmitHandler}>
                 <input value={Author} onChange={(e) => setAuthor(e.target.value)} placeholder="검색"/>
                 <input type="submit" value ="검색하기" />
             </form>
-            <List obj={Data} />
+            { Data.length &&
+                <List obj={Data} />
+            }
         </>
-        )
-    }
+    )
 }
 export default SearchPage;

@@ -34,7 +34,9 @@ function ListPage(){
             {/* {Items && Items.map(item =>{
                 return <Link to={`/books/${item.id}`}><li key={item.title}>{item.title}</li></Link>
             })} */}
-            <List obj={Items} />
+            {Items.length > 0 &&
+                <List obj={Items} />
+            }
         </div>
     )
 }

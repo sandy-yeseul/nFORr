@@ -4,7 +4,7 @@ import {useParams} from 'react-router-dom';
 import {Delete} from '../../Common';
 
 function ViewBookPage(props){
-    const [data, setData] = useState();
+    const [data, setData] = useState(null);
     const id = useParams().bookId;
     console.log(id);
     useEffect(() => {
