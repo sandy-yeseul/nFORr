@@ -39,6 +39,14 @@ router.post('/', async (req, res) =>{
     console.log(req.body)
     try{
         const book = new Book(req.body);
+        const author = req.body.author;
+        const title = req.body.title;
+        try{
+            const findDuplicate = await Book.findOne({author: author});
+            if(findDuplicate.title == title) throw new Error("it's duplicated");
+        } catch (err){
+            return res.status(409).json({data:book});
+        }
         const savedBook = await book.save();
         console.log("Added book");
         res.status(201).json({data:savedBook});
