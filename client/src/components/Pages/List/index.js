@@ -8,7 +8,7 @@ function ListPage(){
     useEffect(() => {
         try{
             axios.get('http://localhost:3028/books')
-            .then((res)=> res.data.data)
+            .then((res)=> res.data)
             .then((data) => {
                 console.log(Object.keys(data).length);
                 let itemObj =[];

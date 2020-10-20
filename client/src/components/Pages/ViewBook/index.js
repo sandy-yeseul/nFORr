@@ -12,7 +12,7 @@ function ViewBookPage(props){
             axios.get(`http://localhost:3028/books/${id}`)
                 .then((res) => {
                     if(res) console.log(res.data.data);
-                    setData(res.data.data);
+                    setData(res.data);
                 })
         } catch(err){
             console.log('nothing!')
