@@ -4,5 +4,11 @@ export default (body) => {
         method: "POST",
         url: "http://localhost:3028/books",
         data: body
-    }).then((res) => console.log(res.data))
+    }).then((res) => {
+        if(res.status == 201) {
+            return true
+        } else{
+            return false;
+        }
+    })
 }

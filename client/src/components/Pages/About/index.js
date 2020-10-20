@@ -1,4 +1,5 @@
 import React from 'react';
+import {withRouter} from 'react-router-dom';
 function AboutPage(){
     return(
         <p>
@@ -6,4 +7,4 @@ function AboutPage(){
         </p>
     )
 }
-export default AboutPage;
+export default withRouter(AboutPage);

@@ -45,9 +45,19 @@ function Form(props) {
       publishDate: publishDate,
     };
     if (props.axios == "new") {
-      newForm(body);
+      newForm(body)
+        .then(result => {
+          if(result.status == 201){
+            props.history.push(`/books/${result.data._id}`)
+          }
+        });
     } else if (props.axios == "update") {
-      updateForm(body, id);
+      updateForm(body, id)
+        .then(result => {
+          if(result.status == 201){
+            props.history.push(`/books/${result.data._id}`)
+          }
+        });
     }
   };
   return (

@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {withRouter} from 'react-router-dom';
 import axios from 'axios';
 import {List} from '../../Common';
 
@@ -8,7 +9,7 @@ function SearchPage(){
     const SubmitHandler = (e) =>{
         e.preventDefault();
         axios.get(`http://localhost:3028/books?author=${Author}`)
-            .then((res) => res.data.data)
+            .then((res) => res.data)
             .then((dt) => {
                 let itemObj = [];
                 for(var i=0; i<Object.keys(dt).length; i++){
@@ -32,4 +33,4 @@ function SearchPage(){
         </>
     )
 }
-export default SearchPage;
+export default withRouter(SearchPage);

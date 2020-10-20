@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import {useParams} from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 import {Delete} from '../../Common';
 
 function ViewBookPage(props){
@@ -28,4 +29,4 @@ function ViewBookPage(props){
         </div>
     );
 }
-export default ViewBookPage;
+export default withRouter(ViewBookPage);

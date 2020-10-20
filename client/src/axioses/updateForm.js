@@ -1,8 +1,9 @@
 import axios from 'axios';
-export default (body, id) => {
-    axios({
+export default async (body, id) => {
+    const result = await axios({
         method: "PUT",
         url: `http://localhost:3028/books/${id}`,
         data: body
-    }).then((res) => console.log(res.data))
+    })
+    return result
 }

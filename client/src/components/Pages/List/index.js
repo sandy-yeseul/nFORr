@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
-import {Link} from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 import {List} from '../../Common';
 
 function ListPage(){
@@ -40,4 +40,4 @@ function ListPage(){
         </div>
     )
 }
-export default ListPage;
+export default withRouter(ListPage);

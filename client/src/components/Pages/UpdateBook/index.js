@@ -1,10 +1,10 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import {Form} from '../../Common';
+import {withRouter} from 'react-router-dom';
 
-export default function UpdateBookPage() {
-    
-
+function UpdateBookPage() {
   return (
     <Form axios={'update'} />
   );
 }
+export default withRouter(UpdateBookPage)
