@@ -1,8 +1,9 @@
-const Book = require('../data-access/index');
+const BookDb = require('../data-access/index');
+const makeBook = require('../book');
 async function getBooksController(httpRequest) {
   console.log("not in search");
   try {
-    const books = await Book.findAll();
+    const books = await BookDb.findAll();
     // console.log(books);
     const data = await {
       body: books,
@@ -17,7 +18,7 @@ async function getBooksController(httpRequest) {
 async function getBookController(httpRequest) {
   const id = await httpRequest.params.bookId;
   try {
-    const book = await Book.findById(id);
+    const book = await BookDb.findById(id);
     console.log("got book");
     const data = await {
       body: book,
@@ -34,7 +35,8 @@ async function getBookController(httpRequest) {
 }
 async function postBookController(httpRequest) {
   try {
-    const book = await new Book(httpRequest.body);
+    // const book = await new BookDb(httpRequest.body);
+    const book= await makeBook(httpRequest.body);
     //FIXME it doesn't work
     // const author = await httpRequest.body.author;
     // const title = await httpRequest.body.title;
@@ -48,7 +50,7 @@ async function postBookController(httpRequest) {
     //     }
     //     return data;
     // }
-    const savedBook = await book.save();
+    const savedBook = await BookDb.insert(book);
     console.log("Added book");
     const data = {
       body: savedBook,
@@ -65,16 +67,9 @@ async function postBookController(httpRequest) {
 }
 async function putBookController(httpRequest) {
   const id = await httpRequest.params.bookId;
-  const item = {
-    title: httpRequest.body.title,
-    author: httpRequest.body.author,
-    publisher: httpRequest.body.publisher,
-    seller: httpRequest.body.seller,
-    price: httpRequest.body.price,
-    publishDate: httpRequest.body.publishDate,
-  };
+  const item = makeBook(httpRequest.body);
   try {
-    const updatedBook = await Book.update(id, item);
+    const updatedBook = await BookDb.update(id, item);
     console.log("Udpated");
     const data = {
       body: updatedBook,
@@ -93,7 +88,7 @@ async function putBookController(httpRequest) {
 async function deleteBookController(httpRequest) {
   const id = httpRequest.params.bookId;
   try {
-    const removedBook = await Book.remove(id);
+    const removedBook = await BookDb.remove(id);
     console.log("Deleted");
     const data = {
       body: removedBook,

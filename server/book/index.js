@@ -1,4 +1,4 @@
-function makeBook({
+module.exports=function makeBook({
   title,
   author,
   publisher = null,
@@ -19,7 +19,7 @@ function makeBook({
     throw new Error("Price must be more than 0");
   }
   if (!publishDate && !isDate(publishDate)) {
-    throw new Error("Publish date mus be valid form");
+    throw new Error("Publish date must be valid form");
   }
   if (publishDate) {
     publishDate = formatDate(publishDate);

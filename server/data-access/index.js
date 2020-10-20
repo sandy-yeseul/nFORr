@@ -28,12 +28,7 @@ async function findOne(condition) {
 }
 async function insert(data) {
   //REVIEW don't know
-  let book;
-  try {
-    book = await new Book(data);
-  } catch (err) {
-    console.log("error to make schema blah");
-  }
+  const book = await new Book(data);
   try {
     const savedBook = await book.save();
     return savedBook;
