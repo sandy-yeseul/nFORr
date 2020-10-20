@@ -16,10 +16,22 @@ async function getBooksController(httpRequest){
         console.log('error when find book')
     }
 }
-function getBookController(httpRequest){
-    return {
-        body: 'data',
-        code: 200
+async function getBookController(httpRequest){
+    const id = await httpRequest.params.bookId
+    try {
+        const book = await Book.findById(id);
+        console.log('got book');
+        const data = await{
+            body: book,
+            code: 200
+        }
+        return data;
+    } catch(err){
+        const data = await {
+            body: err,
+            code: 400
+        }
+        return data;
     }
 }
 // function postBookController(httpRequest){

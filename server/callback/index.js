@@ -3,11 +3,11 @@ const httpResponseFormat = require('./httpResponseFormat');
 // import controllers from './controllers';
 function MakeExpressCallBack(controller){
     return async (req, res) => {
-        // const httpRequest = await httpRequestFormat(req);
+        const httpRequest = await httpRequestFormat(req);
         
         // console.log(data);
         try{
-            const data = await controller();
+            const data = await controller(httpRequest);
             // console.log(`data: ${data.body}`)
             if(Object.keys(data).length > 0){
                 const response = await httpResponseFormat(data);
@@ -19,6 +19,8 @@ function MakeExpressCallBack(controller){
             }
         } catch (err){
             console.log('hmm ')
+            res.send(err)
+            return res
         }
         // const data = {
         //     code: 200,

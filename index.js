@@ -5,7 +5,7 @@ const cors = require('cors');
 require('dotenv').config();
 
 const callback = require('./server/callback');
-const {getBooksController} = require('./server/controllers/index');
+const {getBooksController, getBookController} = require('./server/controllers/index');
 const app = express();
 const port = process.env.PORT;
 
@@ -25,6 +25,7 @@ app.use(cors());
 // });
 app.get('/', callback());
 app.get('/books', callback(getBooksController))
+app.get('/books/:bookId', callback(getBookController))
 // app.get('/books', callback(get))
 // const Book = require('../models/book');
 /*
