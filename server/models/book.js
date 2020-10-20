@@ -9,9 +9,9 @@ const bookSchema = mongoose.Schema({
         required: true
     },
     publisher: String,
+    publishDate: Date,
     seller: String,
-    price: Number,
-    publishDate: Date
+    price: Number
 });
 
 const Book = module.exports =mongoose.model('Book', bookSchema);

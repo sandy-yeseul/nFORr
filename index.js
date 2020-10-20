@@ -2,7 +2,6 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-require("dotenv").config();
 
 const callback = require("./server/callback");
 const {
@@ -12,19 +11,11 @@ const {
   putBookController,
   deleteBookController,
 } = require("./server/controllers/index");
+
 const {makeDb} = require('./server/data-access/index');
 const app = express();
 const port = process.env.PORT;
 
-// mongoose
-//   .connect(process.env.DATABASE_URL, {
-//     useNewUrlParser: true,
-//     useUnifiedTopology: true,
-//     useCreateIndex: true,
-//     useFindAndModify: true,
-//   })
-//   .then(() => console.log("Mongodb Connected..."))
-//   .catch((err) => console.log(err));
 makeDb();
 
 app.use(bodyParser.json());
