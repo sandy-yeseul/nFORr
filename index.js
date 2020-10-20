@@ -5,6 +5,7 @@ const cors = require('cors');
 require('dotenv').config();
 
 const callback = require('./server/callback');
+const {getBooksController} = require('./server/controllers/index');
 const app = express();
 const port = process.env.PORT;
 
@@ -23,6 +24,7 @@ app.use(cors());
 //     res.status(200).send(`hello... the server is listening at ${port}`);
 // });
 app.get('/', callback());
+app.get('/books', callback(getBooksController))
 // app.get('/books', callback(get))
 // const Book = require('../models/book');
 /*
