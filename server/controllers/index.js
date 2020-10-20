@@ -37,6 +37,7 @@ async function getBookController(httpRequest){
 async function postBookController(httpRequest){
     try{
         const book = await new Book(httpRequest.body);
+        //TODO it doesn't work
         // const author = await httpRequest.body.author;
         // const title = await httpRequest.body.title;
         // try{
@@ -65,15 +66,50 @@ async function postBookController(httpRequest){
     }
 }
 async  function putBookController(httpRequest){
-    return{
-        body: 'data',
-        code: 201
+    const id = await httpRequest.params.bookId;
+    const item = {
+        title: httpRequest.body.title,
+        author: httpRequest.body.author,
+        publisher: httpRequest.body.publisher,
+        seller: httpRequest.body.seller,
+        price: httpRequest.body.price,
+        publishDate: httpRequest.body.publishDate 
     }
+     try{
+        const updatedBook = await Book.updateOne(
+            {_id: id},
+            { $set: item});
+            console.log("Udpated");
+            const data ={
+                body: updatedBook,
+                code: 201
+            }
+            return data;
+     } catch(err) {
+        console.log("error to find a book");
+        const data = {
+            body: err,
+            code: 400
+        }
+        return data
+     }
 }
 async  function deleteBookController(httpRequest){
-    return{
-        body: 'data',
-        code: 200
+    const id = httpRequest.params.bookId;
+    try{
+        const removedBook = await Book.deleteOne({_id: id});
+        console.log("Deleted");
+        const data = {
+            body: removedBook,
+            code: 201
+        }
+        return data;
+    } catch(err){
+        const data = {
+            body: "error on deleting book",
+            code: 400
+        }
+        return data;
     }
 }
 
