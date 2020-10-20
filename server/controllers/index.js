@@ -34,23 +34,47 @@ async function getBookController(httpRequest){
         return data;
     }
 }
-// function postBookController(httpRequest){
-//     return {
-//         body: 'data',
-//         code: 201
-//     }
-// }
-// function putBookController(httpRequest){
-//     return{
-//         body: 'data',
-//         code: 201
-//     }
-// }
-// function deleteBookController(httpRequest){
-//     return{
-//         body: 'data',
-//         code: 200
-//     }
-// }
+async function postBookController(httpRequest){
+    try{
+        const book = await new Book(httpRequest.body);
+        // const author = await httpRequest.body.author;
+        // const title = await httpRequest.body.title;
+        // try{
+        //     const findDuplicate = await Book.findOne({author: author});
+        //     if(findDuplicate.title == title) throw new Error("Duplicate can't be stored");
+        // } catch(err){
+        //     const data ={
+        //         body: err,
+        //         code: 409
+        //     } 
+        //     return data;
+        // }
+        const savedBook = await book.save();
+        console.log("Added book");
+        const data = {
+            body: savedBook,
+            code: 201
+        }
+        return data
+    } catch(err){
+        const data = {
+            body: "Failed to add a book",
+            code: 400
+        }
+        return data;
+    }
+}
+async  function putBookController(httpRequest){
+    return{
+        body: 'data',
+        code: 201
+    }
+}
+async  function deleteBookController(httpRequest){
+    return{
+        body: 'data',
+        code: 200
+    }
+}
 
-module.exports = {getBooksController, getBookController};
+module.exports = {getBooksController, getBookController, postBookController, putBookController, deleteBookController};
