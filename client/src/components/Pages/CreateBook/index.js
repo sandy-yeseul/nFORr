@@ -1,12 +1,15 @@
-import React, {useState} from "react";
+import React from "react";
 import {withRouter} from 'react-router-dom';
-import {newForm} from '../../../axioses';
 import {Form} from '../../Common';
 
-function CreateBookPage() {
+function CreateBookPage(props) {
+  const movePage = (url) =>{
+    alert("SUCCESS!");
+    props.history.push(url);
+  }
   return (
     <>
-        <Form axios={"new"} />
+        <Form axios={"new"} movePage={movePage}/>
     </>
   );
 }

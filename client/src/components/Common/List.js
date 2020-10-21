@@ -17,7 +17,7 @@ function MakeList(props){
     return(
         <>
             {obj && obj.map(item=>{
-                return <Link to={`/books/${item.id}`}><li key={item.title}>{item.title}</li></Link>
+                return <Link to={`/books/${item.id}`} key={item.title}><li>{item.title}</li></Link>
             })}
         </>
     )

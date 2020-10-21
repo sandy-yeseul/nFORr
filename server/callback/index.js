@@ -42,10 +42,10 @@ function MakeExpressCallBack(controller) {
     // res.status(httpResponse.statusCode).send(httpResponse.body);
   };
 }
-// ANCHOR
-// TODO
-// REVIEW
-// STUB
+// ANCHOR anchor
+// TODO todo
+// REVIEW wow
+// STUB repeat
 // FIXME module exports do something whatever
 /** NOTE
  * there will be two ways(as far as i know)
