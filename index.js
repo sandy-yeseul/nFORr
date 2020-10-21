@@ -13,6 +13,7 @@ const {
 const makeBook = require('./server/book');
 
 const {makeDb} = require('./server/data-access/index');
+const Book = require('./server/models/book');
 const app = express();
 const port = process.env.PORT;
 
@@ -23,11 +24,16 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
 // FOR TEST
-app.get("/", (req, res) =>{
-  var obj = {title: "이해", author: "포기", price:"0.2", publishDate: "December 17, 2010"}
-  var lobj = makeBook(obj);
-  console.log(lobj)
-});
+// app.get("/", async(req, res) =>{
+//   var obj = {title: "이해", author: "포기", price:"0.2", publishDate: "December 17, 2010"}
+//   var lobj = makeBook(obj);
+//   console.log(lobj)
+//   var newBook = await new Book(lobj);
+//   var savedBook = await newBook.save();
+//   console.log(savedBook)
+//   var finalbook = makeBook(savedBook);
+//   console.log(finalbook);
+// });
 app.get("/books", callback(getBooksController));
 app.get("/books/:bookId", callback(getBookController));
 app.post("/books", callback(postBookController));

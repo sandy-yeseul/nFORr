@@ -2,7 +2,7 @@ const {v4 :uuidv4 } = require('uuid');
 
 function BuildMakeBook(generateId){
   return function makeBook({
-    id ="",
+    _id ="",
     title,
     author,
     publisher = "",
@@ -28,9 +28,9 @@ function BuildMakeBook(generateId){
     if (isDate(publishDate)) {
       publishDate = formatDate(new Date(publishDate));
     }
-    id = generateId();
+    if(!_id) {_id = generateId();}
     const book = Object.freeze({
-      _id: id,
+      _id: _id,
       title: title,
       author: author,
       publisher: publisher,
