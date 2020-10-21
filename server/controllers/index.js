@@ -3,27 +3,36 @@ const makeBook = require('../book');
 async function getBooksController(httpRequest) {
   console.log("not in search");
   try {
-    let books = await BookDb.findAll();
+    let dBbooks = await BookDb.findAll();
+    let books = [];
+    for(let i=0; i<Object.keys(dBbooks).length; i++){
+      books[i] = makeBook(dBbooks[i]);
+    }
     const data = await {
       body: books,
       code: 200,
     };
     return data;
   } catch (err) {
-    console.log(err);
+    console.log('failed to get book list')
+    const data = await {
+      body: err,
+      code: 400
+    }
   }
 }
 async function getBookController(httpRequest) {
   const id = await httpRequest.params.bookId;
   try {
     let dBbook = await BookDb.findById(id);
-    let book = makeBook(dBbook);
+    const book = makeBook(dBbook);
     const data = await {
       body: book,
       code: 200,
     };
     return data;
   } catch (err) {
+    console.log('failed get book')
     const data = await {
       body: err,
       code: 400,
@@ -48,16 +57,17 @@ async function postBookController(httpRequest) {
     //     }
     //     return data;
     // }
-    const savedBook = await BookDb.insert(book);
-    console.log("Added book");
+    let dBsavedBook = await BookDb.insert(book);
+    const savedBook = makeBook(dBsavedBook);
     const data = {
       body: savedBook,
       code: 201,
     };
     return data;
   } catch (err) {
+    console.log('failed to add book')
     const data = {
-      body: "Failed to add a book",
+      body: err,
       code: 400,
     };
     return data;
@@ -67,15 +77,15 @@ async function putBookController(httpRequest) {
   const id = await httpRequest.params.bookId;
   const item = makeBook(httpRequest.body);
   try {
-    const updatedBook = await BookDb.update(id, item);
-    console.log("Udpated");
+    let dBupdatedBook = await BookDb.update(id, item);
+    const updatedBook = makeBook(dBupdatedBook);
     const data = {
       body: updatedBook,
       code: 201,
     };
     return data;
   } catch (err) {
-    console.log("error to find a book");
+    console.log("failed to edit book");
     const data = {
       body: err,
       code: 400,
@@ -86,16 +96,17 @@ async function putBookController(httpRequest) {
 async function deleteBookController(httpRequest) {
   const id = httpRequest.params.bookId;
   try {
-    const removedBook = await BookDb.remove(id);
+    let dBremovedBook = await BookDb.remove(id);
+    const removedBook = makeBook(dBremovedBook);
     const data = {
       body: removedBook,
       code: 201,
     };
     return data;
   } catch (err) {
-    console.log(err)
+    console.log('failed to delete book')
     const data = {
-      body: "error on deleting book",
+      body: err,
       code: 400,
     };
     return data;
