@@ -28,12 +28,12 @@ function Form(props) {
         })
 
     }
-    if (props.axios === "new") {
+    if (props.status === "new") {
       setButton("추가하기");
-    } else if (props.axios === "update") {
+    } else if (props.status === "update") {
       setButton("변경하기");
     }
-  }, [id, props.axios]);
+  }, [id, props.status]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -45,7 +45,7 @@ function Form(props) {
       price: price,
       publishDate: publishDate,
     };
-    if (props.axios === "new") {
+    if (props.status === "new") {
       const method = "POST",
             url = "http://localhost:3028/books",
             body = Body;
@@ -57,7 +57,7 @@ function Form(props) {
             props.movePage(`/books/${id}`);
           }
         })
-    } else if (props.axios === "update") {
+    } else if (props.status === "update") {
       const method = "PUT",
             url = `http://localhost:3028/books/${id}`,
             body = Body;

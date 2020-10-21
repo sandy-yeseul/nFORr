@@ -8,7 +8,7 @@ function UpdateBookPage(props) {
     props.history.push(url)
   }
   return (
-    <Form axios={'update'} movePage = {movePage}/>
+    <Form status={'update'} movePage = {movePage}/>
   );
 }
 export default withRouter(UpdateBookPage)

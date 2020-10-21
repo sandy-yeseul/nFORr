@@ -17,6 +17,7 @@ function MakeList(props){
     return(
         <>
             {obj && obj.map(item=>{
+                //NOTE anyway the outside wrapper should have key. child doesn't need
                 return <Link to={`/books/${item.id}`} key={item.title}><li>{item.title}</li></Link>
             })}
         </>
