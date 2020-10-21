@@ -8,7 +8,7 @@ async function makeDb() {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useCreateIndex: true,
-      useFindAndModify: true,
+      useFindAndModify: false,
     })
     .then(() => console.log("Mongodb Connected..."))
     .catch((err) => console.log(err));

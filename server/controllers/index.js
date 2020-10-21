@@ -76,9 +76,18 @@ async function postBookController(httpRequest) {
 async function putBookController(httpRequest) {
   const id = await httpRequest.params.bookId;
   const item = makeBook(httpRequest.body);
+  // TODO optimize edit book(copy?)
+  let test ={
+    title: item.title,
+    author: item.author,
+    publisher: item.publisher,
+    publishDate : item.publishDate,
+    seller: item.seller,
+    price: item.price
+  }
   try {
-    let dBupdatedBook = await BookDb.update(id, item);
-    const updatedBook = makeBook(dBupdatedBook);
+    let dBupdatedBook = await BookDb.update(id, test);
+    let updatedBook = makeBook(dBupdatedBook);
     const data = {
       body: updatedBook,
       code: 201,
