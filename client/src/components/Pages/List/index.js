@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {callAxios} from '../../../utilities';
+import {callDb} from '../../../utilities';
 import {withRouter} from 'react-router-dom';
 import {List} from '../../Common';
 
@@ -9,7 +9,7 @@ function ListPage(){
         try{
             const method = "GET",
                 url = "http://localhost:3028/books";
-            callAxios(method, url)
+            callDb(method, url)
                 .then((res) => res.data)
                 .then((data) => {
                     //FIXME optimize NEED!

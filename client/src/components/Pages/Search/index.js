@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {withRouter} from 'react-router-dom';
-import {callAxios} from '../../../utilities';
+import {callDb} from '../../../utilities';
 import {List} from '../../Common';
 
 function SearchPage(){
@@ -11,7 +11,7 @@ function SearchPage(){
         //FIXME OPTIMIZE!!
         const method = "GET",
             url = `http://localhost:3028/books?author=${Author}`;
-        callAxios(method, url)
+        callDb(method, url)
             .then(res => res.data)
             //TODO can be separated to one function with the list
             .then(dataObject => {

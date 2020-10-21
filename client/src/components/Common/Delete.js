@@ -1,12 +1,12 @@
 import React from 'react';
-import {callAxios} from '../../utilities';
+import {callDb} from '../../utilities';
 
 function Delete(props) {
     const id = props.id;
     const deleteHandler= () =>{
         const method = "DELETE",
             url = `http://localhost:3028/books/${id}`;
-        callAxios(method, url)
+        callDb(method, url)
             .then((res) => {
                 if(res.status === 201){
                     props.movePage('/books')

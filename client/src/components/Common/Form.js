@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import {callAxios} from "../../utilities";
+import {callDb} from "../../utilities";
 
 function Form(props) {
   const [title, setTitle] = useState("");
@@ -16,7 +16,7 @@ function Form(props) {
     if (id) {
       const method = "GET",
             url = `http://localhost:3028/books/${id}`
-      callAxios(method, url)
+      callDb(method, url)
         .then((res) => res.data)
         .then((data) =>{
           setTitle(data.title);
@@ -49,7 +49,7 @@ function Form(props) {
       const method = "POST",
             url = "http://localhost:3028/books",
             body = Body;
-      callAxios(method, url, body)
+      callDb(method, url, body)
         .then((res) =>{
           if(res.status === 201){
             //FIXME
@@ -61,7 +61,7 @@ function Form(props) {
       const method = "PUT",
             url = `http://localhost:3028/books/${id}`,
             body = Body;
-      callAxios(method, url, body)
+      callDb(method, url, body)
         .then(res =>{
           if(res.status === 201){
             //FIXME

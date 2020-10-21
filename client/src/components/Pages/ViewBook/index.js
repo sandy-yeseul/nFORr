@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {callAxios} from '../../../utilities';
+import {callDb} from '../../../utilities';
 import {useParams} from 'react-router-dom';
 import {withRouter} from 'react-router-dom';
 import {Delete} from '../../Common';
@@ -15,7 +15,7 @@ function ViewBookPage(props){
         try{
             const method = "GET",
                 url = `http://localhost:3028/books/${id}`;
-            callAxios(method, url)
+            callDb(method, url)
                 .then(res => setData(res.data))
         } catch(err){
             console.log('nothing!')
