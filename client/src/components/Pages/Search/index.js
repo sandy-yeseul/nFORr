@@ -17,7 +17,6 @@ function SearchPage(){
             .then(dataObject => {
                 let itemObj = [];
                 for(var i=0; i<Object.keys(dataObject); i++){
-                    //TODO change after response format changed
                     if(dataObject[i]._id.length>0){
                         itemObj[i] = {id: dataObject[i]._id, title: dataObject[i].title};
                     }

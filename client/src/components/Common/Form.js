@@ -21,10 +21,10 @@ function Form(props) {
         .then((data) =>{
           setTitle(data.title);
           setAuthor(data.author);
-          setPublisher(data.publisher || "");
-          setSeller(data.seller || "");
-          setPrice(data.price || "");
-          setPublishDate(data.publishDate || "");
+          setPublisher(data.publisher);
+          setSeller(data.seller);
+          setPrice(data.price);
+          setPublishDate(data.publishDate);
         })
 
     }
@@ -53,7 +53,7 @@ function Form(props) {
         .then((res) =>{
           if(res.status === 201){
             //FIXME
-            const id = '';
+            const id = res.data._id;
             props.movePage(`/books/${id}`);
           }
         })
@@ -65,7 +65,7 @@ function Form(props) {
         .then(res =>{
           if(res.status === 201){
             //FIXME
-            const id = '';
+            const id = res.data._id;
             props.movePage(`/books/${id}`);
           }
         })

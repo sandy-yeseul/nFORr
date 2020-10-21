@@ -16,7 +16,6 @@ function ListPage(){
                     let itemObj = [];
                     for(var i=0; i<Object.keys(data).length; i++){
                         if(data[i]._id.length>0){ //FIXME validation need to be separated
-                            //TODO need to change after response format changed
                             itemObj[i] = {id: data[i]._id, title: data[i].title};
                         }
                     }
