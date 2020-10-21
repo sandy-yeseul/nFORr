@@ -4,5 +4,6 @@ import Button from './Button';
 import Delete from './Delete';
 import List from './List';
 import Form from './Form';
+import Detail from './Detail';
 
-export {Header, Footer, Button, Delete, List, Form};
+export {Header, Footer, Button, Delete, List, Form, Detail};

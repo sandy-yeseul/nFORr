@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {callDb} from '../../../utilities';
 import {useParams} from 'react-router-dom';
 import {withRouter} from 'react-router-dom';
-import {Delete} from '../../Common';
+import {Delete, Detail} from '../../Common';
 
 function ViewBookPage(props){
     const [data, setData] = useState(null);
@@ -23,10 +23,7 @@ function ViewBookPage(props){
     }, [id]);
     return(
         <div>
-        {/* TODO make it separate */}
-        {data && Object.keys(data).map(item =>{
-            return <p key={item.toString()}>{item}: {data[item]}</p>
-        })}
+        {data && <Detail data={data} />}
         <a href={`/books/update/${id}`}>Update</a>
         <Delete id={id} movePage={movePage}/>
         </div>
