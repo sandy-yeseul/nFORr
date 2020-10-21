@@ -1,23 +1,50 @@
 const BookDb = require('../data-access/index');
 const makeBook = require('../book');
 async function getBooksController(httpRequest) {
-  console.log("not in search");
-  try {
-    let dBbooks = await BookDb.findAll();
-    let books = [];
-    for(let i=0; i<Object.keys(dBbooks).length; i++){
-      books[i] = makeBook(dBbooks[i]);
+  const author = httpRequest.query.author;
+  if(author){
+    try {
+      let dbBooks = await BookDb.findOne({author: author});
+      console.log(dbBooks);
+      let books = [];
+      // TODO make it separated function
+      // for(let i=0; i<Object.keys(dbBooks).length; i++){
+      //   books[i] = makeBook(dbBooks[i]);
+      // }
+      const data = await {
+        body: dbBooks,
+        code: 200,
+      };
+      return data;
+    } catch(err){
+      console.log(err);
+      const data = {
+        body: err,
+        code: 400
+      }
+      return data;
     }
-    const data = await {
-      body: books,
-      code: 200,
-    };
-    return data;
-  } catch (err) {
-    console.log('failed to get book list')
-    const data = await {
-      body: err,
-      code: 400
+  } else {
+    console.log("not in search");
+    try {
+      let dBbooks = await BookDb.findAll();
+      let books = [];
+      // TODO make it separated function
+      for(let i=0; i<Object.keys(dBbooks).length; i++){
+        books[i] = makeBook(dBbooks[i]);
+      }
+      const data = await {
+        body: books,
+        code: 200,
+      };
+      return data;
+    } catch (err) {
+      console.log('failed to get book list')
+      const data = await {
+        body: err,
+        code: 400
+      }
+      return data;
     }
   }
 }
