@@ -1,5 +1,4 @@
 const express = require("express");
-const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
@@ -11,6 +10,7 @@ const {
   putBookController,
   deleteBookController,
 } = require("./server/controllers/index");
+const makeBook = require('./server/book');
 
 const {makeDb} = require('./server/data-access/index');
 const app = express();
@@ -22,7 +22,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
-app.get("/", callback());
+// FOR TEST
+// app.get("/", (req, res) =>{
+//   var obj = {title: "이해", author: "포기", price:"0.2", publishDate: "December 17, 2010"}
+//   var lobj = makeBook(obj);
+//   console.log(lobj)
+// });
 app.get("/books", callback(getBooksController));
 app.get("/books/:bookId", callback(getBookController));
 app.post("/books", callback(postBookController));

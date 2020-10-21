@@ -1,10 +1,11 @@
 module.exports=function makeBook({
+  id ="",
   title,
   author,
-  publisher = null,
-  publishDate = null,
-  seller = null,
-  price = null,
+  publisher = "",
+  publishDate = "",
+  seller = "",
+  price = "",
 } = {}) {
   if (!title) {
     throw new Error("Book must have Title");
@@ -12,20 +13,21 @@ module.exports=function makeBook({
   if (!author) {
     throw new Error("Book must have Author");
   }
-  if (!price && !isNumber(price)) {
+  if (price && !(isNumber(price))) {
     throw new Error("Price must be a valid number");
   }
   if (isNumber(price) && price < 0) {
     throw new Error("Price must be more than 0");
   }
-  if (!publishDate && !isDate(publishDate)) {
+  if (publishDate && !(isDate(publishDate))) {
     throw new Error("Publish date must be valid form");
   }
-  if (publishDate) {
-    publishDate = formatDate(publishDate);
+  if (isDate(publishDate)) {
+    publishDate = formatDate(new Date(publishDate));
   }
 
   const book = Object.freeze({
+    _id: id,
     title: title,
     author: author,
     publisher: publisher,
@@ -37,20 +39,16 @@ module.exports=function makeBook({
 }
 function isNumber(str) {
   const number = Number(str);
-  if (number == NaN) {
-    return false;
-  }
-  return true;
+  return !isNaN(number);
 }
 function isDate(str) {
-  const checkDate = new Date(str);
-  if (checkDate == NaN) {
-    return false;
-  }
-  return true;
+  const date = new Date(str);
+  return !isNaN(date);
 }
 function formatDate(date) {
-  const offset = date.getTimezoneOffset();
-  date = new Date(date.getTime() - offset * 60 * 1000);
-  return date.toISOString().split("T")[0];
+  var currentTime = new Date();
+  var offset = currentTime.getTimezoneOffset();
+  var getDate = new Date(date.getTime() - offset * 60 *1000);
+  const converted = getDate.toISOString().split("T")[0];
+  return converted;
 }
