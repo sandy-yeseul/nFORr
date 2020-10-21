@@ -3,23 +3,21 @@ const makeBook = require('../book');
 async function getBooksController(httpRequest) {
   console.log("not in search");
   try {
-    const books = await BookDb.findAll();
-    // console.log(books);
+    let books = await BookDb.findAll();
     const data = await {
       body: books,
       code: 200,
     };
-    // console.log(`${data.body} \nreturning in controller`);
     return data;
   } catch (err) {
-    console.log("error when find book");
+    console.log(err);
   }
 }
 async function getBookController(httpRequest) {
   const id = await httpRequest.params.bookId;
   try {
-    const book = await BookDb.findById(id);
-    console.log("got book");
+    let dBbook = await BookDb.findById(id);
+    let book = makeBook(dBbook);
     const data = await {
       body: book,
       code: 200,
