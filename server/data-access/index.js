@@ -13,7 +13,12 @@ async function makeDb() {
     .then(() => console.log("Mongodb Connected..."))
     .catch((err) => console.log(err));
 }
-
+//REVIEW this might be useful
+// const db = mongoose.connection;
+// db.on('error', console.error.bind(console, 'connection error:'));
+// db.once('open', function() {
+//   // we're connected!
+// });
 async function findAll() {
   const books = await Book.find();
   return books;
@@ -27,34 +32,26 @@ async function findOne(condition) {
   return book;
 }
 async function insert(data) {
-  //REVIEW don't know
   const book = await new Book(data);
   try {
     const savedBook = await book.save();
     return savedBook;
   } catch (err) {
-    console.log("error in saving process: data-access");
+    throw new Error(err)
   }
 }
 async function update(id, item) {
-  //TODO return should be readable
+  const options = {new: true}
   try {
-    const updatedBook = await Book.updateOne({ _id: id }, { $set: item });
-    console.log("udpated book in db");
+    const updatedBook = await Book.findByIdAndUpdate(id, { $set: item }, options);
     return updatedBook;
   } catch (err) {
-    console.log("data-access: error in updateing");
+    throw new Error(err)
   }
 }
 async function remove(id) {
-  //TODO cannot delete same one-validation need
-  //TODO return deletedBook: show title and author etc
-  try {
-    const removedBook = await Book.deleteOne({ _id: id });
-    console.log("deleted on db");
+  const removedBook = await Book.findByIdAndDelete(id);
+    if(!removedBook) throw new Error("doesn't exist")
     return removedBook;
-  } catch (err) {
-    console.log("error on deleting: db");
-  }
 }
 module.exports = { makeDb, findAll, findById, findOne, insert, update, remove };

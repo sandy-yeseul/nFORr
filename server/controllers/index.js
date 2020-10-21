@@ -89,13 +89,13 @@ async function deleteBookController(httpRequest) {
   const id = httpRequest.params.bookId;
   try {
     const removedBook = await BookDb.remove(id);
-    console.log("Deleted");
     const data = {
       body: removedBook,
       code: 201,
     };
     return data;
   } catch (err) {
+    console.log(err)
     const data = {
       body: "error on deleting book",
       code: 400,
