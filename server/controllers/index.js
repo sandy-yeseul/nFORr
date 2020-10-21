@@ -4,13 +4,7 @@ async function getBooksController(httpRequest) {
   const author = httpRequest.query.author;
   if(author){
     try {
-      let dbBooks = await BookDb.findOne({author: author});
-      console.log(dbBooks);
-      let books = [];
-      // TODO make it separated function
-      // for(let i=0; i<Object.keys(dbBooks).length; i++){
-      //   books[i] = makeBook(dbBooks[i]);
-      // }
+      const dbBooks = await BookDb.findOne({author: author});
       const data = await {
         body: dbBooks,
         code: 200,
