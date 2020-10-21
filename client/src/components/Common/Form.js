@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { newForm, updateForm } from "../../axioses";
-import axios from "axios";
+import axios from "../../axioses";
 
 function Form(props) {
   const [title, setTitle] = useState("");
@@ -15,17 +14,30 @@ function Form(props) {
   const id = useParams().bookId;
   useEffect(() => {
     if (id) {
-      axios
-        .get(`http://localhost:3028/books/${id}`)
+      const method = "GET",
+            url = `http://localhost:3028/books/${id}`
+      axios(method, url)
         .then((res) => res.data)
-        .then((data) => {
+        .then((data) =>{
           setTitle(data.title);
           setAuthor(data.author);
           setPublisher(data.publisher);
           setSeller(data.seller);
           setPrice(data.price);
           setPublishDate(data.publishDate);
-        });
+        })
+      // axios
+      //   .get(`http://localhost:3028/books/${id}`)
+      //   .then((res) => res.data)
+      //   .then((data) => {
+      //     setTitle(data.title);
+      //     setAuthor(data.author);
+      //     setPublisher(data.publisher);
+      //     setSeller(data.seller);
+      //     setPrice(data.price);
+      //     setPublishDate(data.publishDate);
+      //   });
+
     }
     if (props.axios == "new") {
       setButton("추가하기");
@@ -36,7 +48,7 @@ function Form(props) {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    const body = {
+    const Body = {
       title: title,
       author: author,
       publisher: publisher,
@@ -45,19 +57,37 @@ function Form(props) {
       publishDate: publishDate,
     };
     if (props.axios == "new") {
-      newForm(body)
-        .then(result => {
-          if(result.status == 201){
-            props.history.push(`/books/${result.data._id}`)
+      const method = "POST",
+            url = "http://localhost:3028/books",
+            body = Body;
+      axios(method, url, body)
+        .then((res) =>{
+          if(res.status == 201){
+            // props.history.push(`/`)
           }
-        });
+        })
+      // newForm(body)
+      //   .then(result => {
+      //     if(result.status == 201){
+      //       props.history.push(`/books/${result.data._id}`)
+      //     }
+      //   });
     } else if (props.axios == "update") {
-      updateForm(body, id)
-        .then(result => {
-          if(result.status == 201){
-            props.history.push(`/books/${result.data._id}`)
+      const method = "PUT",
+            url = `http://localhost:3028/books/${id}`,
+            body = Body;
+      axios(method, url, body)
+        .then(res =>{
+          if(res.status == 201){
+            // props.history.push(`/`);
           }
-        });
+        })
+      // updateForm(body, id)
+      //   .then(result => {
+      //     if(result.status == 201){
+      //       props.history.push(`/books/${result.data._id}`)
+      //     }
+      //   });
     }
   };
   return (
