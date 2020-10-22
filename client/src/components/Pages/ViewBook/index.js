@@ -16,6 +16,7 @@ function ViewBookPage(props){
             const method = "GET",
                 url = `http://localhost:3028/books/${id}`;
             callDb(method, url)
+            // FIXME will be returned as array(maybe)
                 .then(res => setData(res.data))
         } catch(err){
             console.log('nothing!')
