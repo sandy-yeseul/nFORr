@@ -1,49 +1,11 @@
 const BookDb = require("../data-access/index");
 const makeBook = require("../book");
 async function getBooksController(httpRequest) {
-  const author = httpRequest.query.author;
-  if (author) {
-    try {
-      const dbBooks = await BookDb.findAllCondtion({ author: author });
-      const books = [];
-      for (let i = 0; i < dbBooks.length; i++) {
-        books.push(makeBook(dbBooks[i]));
-      }
-      const data = await {
-        body: books,
-        code: 200,
-      };
-      return data;
-    } catch (err) {
-      console.log(err);
-      const data = {
-        body: err,
-        code: 400,
-      };
-      return data;
-    }
+  const searchQuery = httpRequest.query.author;
+  if (searchQuery) {
+    return searchBook(searchQuery);
   } else {
-    console.log("not in search");
-    try {
-      let dBbooks = await BookDb.findAll();
-      let books = [];
-      // TODO make it separated function
-      for (let i = 0; i < Object.keys(dBbooks).length; i++) {
-        books[i] = makeBook(dBbooks[i]);
-      }
-      const data = await {
-        body: books,
-        code: 200,
-      };
-      return data;
-    } catch (err) {
-      console.log("failed to get book list");
-      const data = await {
-        body: err,
-        code: 400,
-      };
-      return data;
-    }
+    return getAllBook();
   }
 }
 async function getBookController(httpRequest) {
@@ -71,16 +33,17 @@ async function postBookController(httpRequest) {
     //ANCHOR validation
     const author = await book.author;
     const title = await book.title;
-    //FIXME need to be separated 
-    try{
-        const findDuplicate = await BookDb.findOne({author: author});
-        if(findDuplicate.title == title) throw new Error("Duplicate can't be stored");
-    } catch(err){
-        const data ={
-            body: err,
-            code: 409
-        }
-        return data;
+    //TODO need to be separated
+    try {
+      const findDuplicate = await BookDb.findOne({ author: author });
+      if (findDuplicate.title == title)
+        throw new Error("Duplicate can't be stored");
+    } catch (err) {
+      const data = {
+        body: err,
+        code: 409,
+      };
+      return data;
     }
     const savedBook = await BookDb.insert(book);
     const formattedBook = makeBook(savedBook);
@@ -149,3 +112,45 @@ module.exports = {
   putBookController,
   deleteBookController,
 };
+async function searchBook(searchQuery) {
+  try {
+    const dbBooks = await BookDb.findAllCondtion({ author: searchQuery });
+    const formattedBooks = await formatBook(dbBooks);
+    const data = await {
+      body: formattedBooks,
+      code: 200,
+    };
+    return data;
+  } catch (err) {
+    console.log(err)
+    const data = {
+      body: err,
+      code: 400,
+    };
+    return data;
+  }
+}
+async function formatBook(dbBooks) {
+  const formattedBooks = [];
+  for (let i = 0; i < dbBooks.length; i++) {
+    formattedBooks.push(makeBook(dbBooks[i]));
+  }
+  return formattedBooks;
+}
+async function getAllBook(){
+  try{
+    const dbBooks = await BookDb.findAll();
+    const formattedBooks = await formatBook(dbBooks);
+    const data = await{
+      body: formattedBooks,
+      code: 200
+    }
+    return data;
+  } catch (err){
+    const data = {
+      body: err,
+      code: 400
+    }
+    return data;
+  }
+}
