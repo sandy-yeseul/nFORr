@@ -8,7 +8,7 @@ async function searchBook(searchQuery) {
     return formatData(formattedBooks, 200);
   } catch (err) {
     console.log(err);
-    return formatData(err, 400);
+    return formatData(err.message, 400);
   }
 }
 async function getAllBook() {
@@ -17,7 +17,7 @@ async function getAllBook() {
     const formattedBooks = await formatBooks(dbBooks);
     return formatData(formattedBooks, 200);
   } catch (err) {
-    return formatData(err, 400);
+    return formatData(err.message, 400);
   }
 }
 async function getBook(id) {
@@ -27,22 +27,18 @@ async function getBook(id) {
     return formatData(formattedBook, 200);
   } catch (err) {
     console.log(err);
-    return formatData(err, 400);
+    return formatData(err.message, 400);
   }
 }
 async function addBook(body) {
   try {
     const book = await formatBook(body);
-    if (isDuplicates(book)) {
-      //NOTE should i move this to data-access? since they throw errors and here it just catch errors and format it.
-      throw new Error("Duplicate can't be stored");
-    }
     const savedBook = await BookDb.insert(book);
     const formattedBook = await formatBook(savedBook);
     return formatData(formattedBook, 201);
   } catch (err) {
     console.log(err);
-    return formatData(err, 400);
+    return formatData(err.message, 400);
   }
 }
 async function updateBook(id, body) {
@@ -55,7 +51,7 @@ async function updateBook(id, body) {
     return formatData(formattedBook, 201);
   } catch (err) {
     console.log(err);
-    return formatData(err, 400);
+    return formatData(err.message, 400);
   }
 }
 async function deleteBook(id) {
@@ -65,7 +61,7 @@ async function deleteBook(id) {
     return formatData(formattedBook, 201);
   } catch (err) {
     console.log(err);
-    return formatData(err, 400);
+    return formatData(err.message, 400);
   }
 }
 module.exports = {
@@ -77,24 +73,15 @@ module.exports = {
   deleteBook,
 };
 
-async function formatBooks(dbBooks) {
+function formatBooks(dbBooks) {
   const formattedBooks = [];
   for (let i = 0; i < dbBooks.length; i++) {
     formattedBooks.push(makeBook(dbBooks[i]));
   }
   return formattedBooks;
 }
-async function formatBook(dbBook) {
+function formatBook(dbBook) {
   return makeBook(dbBook);
-}
-async function isDuplicates(book) {
-  const author = book.author;
-  const title = book.title;
-  const findDuplicate = await BookDb.findOne({ author: author });
-  if (findDuplicate.title === title) {
-    return true;
-  }
-  return false;
 }
 function formatData(data, code) {
   return {
@@ -102,3 +89,4 @@ function formatData(data, code) {
     code: code,
   };
 }
+ 

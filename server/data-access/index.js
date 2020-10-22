@@ -20,24 +20,41 @@ async function makeDb() {
 //   // we're connected!
 // });
 async function findAll() {
-  const books = await Book.find();
-  return books;
+  try{
+    const books = await Book.find();
+    return books;
+  } catch(err){
+    throw new Error(err);
+  }
 }
 async function findAllCondtion(condition){
-  const books = await Book.find(condition);
-  return books;
+  try{
+    const books = await Book.find(condition);
+    return books;
+  } catch(err){
+    throw new Error(err);
+  }
 }
 async function findById(id) {
-  const book = await Book.findById(id);
-  return book;
+  try{
+    const book = await Book.findById(id);
+    return book;
+  } catch(err){
+    throw new Error(err);
+  }
 }
 async function findOne(condition) {
-  const book = await Book.findOne(condition);
-  return book;
+  try{
+    const book = await Book.findOne(condition);
+    return book;
+  } catch(err){
+    throw new Error(err);
+  }
 }
 async function insert(data) {
-  const book = await new Book(data);
+  if(isDuplicates(data)) { throw new Error("Duplicate cannot be stored");}
   try {
+    const book = await new Book(data);
     const savedBook = await book.save();
     return savedBook;
   } catch (err) {
@@ -54,8 +71,22 @@ async function update(id, item) {
   }
 }
 async function remove(id) {
-  const removedBook = await Book.findByIdAndDelete(id);
+  try{
+    const removedBook = await Book.findByIdAndDelete(id);
     if(!removedBook) throw new Error("doesn't exist")
     return removedBook;
+  } catch(err){
+    throw new Error(err);
+  }
 }
 module.exports = { makeDb, findAll, findAllCondtion, findById, findOne, insert, update, remove };
+
+async function isDuplicates(book) {
+  const author = book.author;
+  const title = book.title;
+  const findDuplicate = await Book.findOne({ author: author });
+  if (findDuplicate.title === title) {
+    return true;
+  }
+  return false;
+}

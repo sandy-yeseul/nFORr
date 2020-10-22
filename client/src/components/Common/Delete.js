@@ -12,6 +12,11 @@ function Delete(props) {
                     props.movePage('/books')
                 }
             })
+            //REVIEW is it enough to handle error message?
+            .catch((err)=>{
+                alert(err);
+                props.movePage('/')
+            })
     }
     return (
         <>
