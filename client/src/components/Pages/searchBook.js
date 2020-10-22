@@ -1,16 +1,21 @@
 import React, {useState} from 'react';
 import {withRouter} from 'react-router-dom';
 import {getListandSet} from '../../utilities';
-import {List} from '../Common';
+import {List, Error} from '../Common';
 
 function SearchPage(){
     const [Author, setAuthor] = useState('');
     const [Data, setData] = useState([]);
+    const [error, setError] = useState(null);
     const SubmitHandler = (e) =>{
         e.preventDefault();
-        const method = "GET",
-            url = `http://localhost:3028/books?author=${Author}`;
-        getListandSet(method, url, setData)
+        const dbElement = {
+            method: "GET",
+            url: `http://localhost:3028/books?author=${Author}`
+        }
+        getListandSet(dbElement)
+            .then(res => setData(res))
+            .catch(err => setError(err));
     }
     return (
         <>
@@ -21,6 +26,7 @@ function SearchPage(){
             { Data.length &&
                 <List obj={Data} />
             }
+            {error && <Error message={error} />}
         </>
     )
 }
