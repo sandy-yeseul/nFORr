@@ -67,25 +67,25 @@ async function getBookController(httpRequest) {
 }
 async function postBookController(httpRequest) {
   try {
-    // const book = await new BookDb(httpRequest.body);
     const book = await makeBook(httpRequest.body);
-    //FIXME it doesn't work
-    // const author = await httpRequest.body.author;
-    // const title = await httpRequest.body.title;
-    // try{
-    //     const findDuplicate = await Book.findOne({author: author});
-    //     if(findDuplicate.title == title) throw new Error("Duplicate can't be stored");
-    // } catch(err){
-    //     const data ={
-    //         body: err,
-    //         code: 409
-    //     }
-    //     return data;
-    // }
-    let dBsavedBook = await BookDb.insert(book);
-    const savedBook = makeBook(dBsavedBook);
+    //ANCHOR validation
+    const author = await book.author;
+    const title = await book.title;
+    //FIXME need to be separated 
+    try{
+        const findDuplicate = await BookDb.findOne({author: author});
+        if(findDuplicate.title == title) throw new Error("Duplicate can't be stored");
+    } catch(err){
+        const data ={
+            body: err,
+            code: 409
+        }
+        return data;
+    }
+    const savedBook = await BookDb.insert(book);
+    const formattedBook = makeBook(savedBook);
     const data = {
-      body: savedBook,
+      body: formattedBook,
       code: 201,
     };
     return data;
