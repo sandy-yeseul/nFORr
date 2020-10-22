@@ -14,6 +14,7 @@ function MakeExpressCallBack(controller) {
       }
     } catch (err) {
       console.log("hmm ");
+      console.log(err);
       res.send(err);
       return res;
     }

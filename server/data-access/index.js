@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const Book = require("../models/book");
+const Book = require("./book")
 require("dotenv").config();
 
 async function makeDb() {

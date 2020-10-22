@@ -10,10 +10,8 @@ const {
   putBookController,
   deleteBookController,
 } = require("./server/controllers/index");
-const makeBook = require('./server/book');
 
 const {makeDb} = require('./server/data-access/index');
-const Book = require('./server/models/book');
 const app = express();
 const port = process.env.PORT;
 

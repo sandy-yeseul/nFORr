@@ -1,5 +1,4 @@
 function httpResponseFormat(data) {
-  // console.log(`this is reponseformat ${data.body}`)
   return Object.freeze({
     headers: {
       "Content-Type": "application/json",
