@@ -3,12 +3,16 @@ import axios from "axios";
 export { callDb, buildMovePage, getListandSet };
 
 async function callDb({ method, url, body = null } = {}) {
-  const result = await axios({
-    method: method,
-    url: url,
-    data: body,
-  });
-  return result;
+  try{
+    const result = await axios({
+      method: method,
+      url: url,
+      data: body,
+    });
+    return result;
+  } catch(err){
+    return err;
+  }
 }
 async function getListandSet(dbElement) {
   const result = await callDb(dbElement);

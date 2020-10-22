@@ -100,6 +100,13 @@ function Form(props) {
           onChange={(e) => setPublisher(e.target.value)}
           placeholder="출판사"
         />
+        <label>출판일</label>
+        <input
+          type="text"
+          value={publishDate}
+          onChange={(e) => setPublishDate(e.target.value)}
+          placeholder="출판일"
+        />
         <label>판매처</label>
         <input
           type="text"
@@ -113,13 +120,6 @@ function Form(props) {
           value={price}
           onChange={(e) => setPrice(e.target.value)}
           placeholder="판매가"
-        />
-        <label>출판일</label>
-        <input
-          type="text"
-          value={publishDate}
-          onChange={(e) => setPublishDate(e.target.value)}
-          placeholder="출판일"
         />
         <input type="submit" value={Button} />
       </form>
