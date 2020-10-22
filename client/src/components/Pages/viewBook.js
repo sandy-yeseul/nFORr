@@ -8,15 +8,16 @@ function ViewBookPage(props){
     const [data, setData] = useState(null);
     const [error, setError] = useState(null);
     const id = useParams().bookId;
-    const dbElement ={
-        method: "GET",
-        url: `http://localhost:3028/books/${id}`
-    }
+    
     useEffect(() => {
+        const dbElement ={
+            method: "GET",
+            url: `http://localhost:3028/books/${id}`
+        }
         callDb(dbElement)
             .then(res => setData(res.data))
             .catch(err => setError(err));
-    }, [dbElement]);
+    }, [id]);
     return(
         <div>
         {data && <Detail data={data} />}
