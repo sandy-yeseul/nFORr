@@ -23,6 +23,10 @@ async function findAll() {
   const books = await Book.find();
   return books;
 }
+async function findAllCondtion(condition){
+  const books = await Book.find(condition);
+  return books;
+}
 async function findById(id) {
   const book = await Book.findById(id);
   return book;
@@ -54,4 +58,4 @@ async function remove(id) {
     if(!removedBook) throw new Error("doesn't exist")
     return removedBook;
 }
-module.exports = { makeDb, findAll, findById, findOne, insert, update, remove };
+module.exports = { makeDb, findAll, findAllCondtion, findById, findOne, insert, update, remove };

@@ -4,9 +4,13 @@ async function getBooksController(httpRequest) {
   const author = httpRequest.query.author;
   if(author){
     try {
-      const dbBooks = await BookDb.findOne({author: author});
+      const dbBooks = await BookDb.findAllCondtion({author: author});
+      const books = [];
+      for(let i=0; i<dbBooks.length; i++){
+        books.push(makeBook(dbBooks[i]))
+      } 
       const data = await {
-        body: dbBooks,
+        body: books,
         code: 200,
       };
       return data;

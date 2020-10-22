@@ -14,9 +14,10 @@ function SearchPage(){
         callDb(method, url)
             .then(res => res.data)
             //TODO can be separated to one function with the list
-            .then(dataObject => {
+            //TOOD show roading, no search result for each result
+            .then((dataObject) => {
                 let itemObj = [];
-                for(var i=0; i<Object.keys(dataObject); i++){
+                for(var i=0; i<dataObject.length; i++){
                     if(dataObject[i]._id.length>0){
                         itemObj[i] = {id: dataObject[i]._id, title: dataObject[i].title};
                     }
