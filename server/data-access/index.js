@@ -52,7 +52,7 @@ async function findOne(condition) {
   }
 }
 async function insert(data) {
-  if(isDuplicates(data)) { throw new Error("Duplicate cannot be stored");}
+  if(await isDuplicates(data)) { throw new Error("Duplicate cannot be stored");}
   try {
     const book = await new Book(data);
     const savedBook = await book.save();
@@ -85,7 +85,7 @@ async function isDuplicates(book) {
   const author = book.author;
   const title = book.title;
   const findDuplicate = await Book.findOne({ author: author });
-  if (findDuplicate.title === title) {
+  if (findDuplicate!=null && findDuplicate.title === title) {
     return true;
   }
   return false;

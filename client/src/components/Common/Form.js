@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import {callDb} from "../../utilities";
+import {callDb, getDataAndSet} from "../../utilities";
 
 function Form(props) {
   const [title, setTitle] = useState("");
@@ -11,11 +10,12 @@ function Form(props) {
   const [publishDate, setPublishDate] = useState("");
   const [Button, setButton] = useState("");
 
-  const id = useParams().bookId;
+  const id = props.id;
   useEffect(() => {
     if (id) {
       const method = "GET",
             url = `http://localhost:3028/books/${id}`
+            // TODO fix? idk should handle error
       callDb(method, url)
         .then((res) => res.data)
         .then((data) =>{
@@ -26,14 +26,11 @@ function Form(props) {
           setPrice(data.price);
           setPublishDate(data.publishDate);
         })
-
-    }
-    if (props.status === "new") {
-      setButton("추가하기");
-    } else if (props.status === "update") {
       setButton("변경하기");
+    } else{
+      setButton("추가하기");
     }
-  }, [id, props.status]);
+  }, [id]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -45,26 +42,25 @@ function Form(props) {
       price: price,
       publishDate: publishDate,
     };
-    if (props.status === "new") {
+    if (!id) {
       const method = "POST",
             url = "http://localhost:3028/books",
             body = Body;
       callDb(method, url, body)
         .then((res) =>{
           if(res.status === 201){
-            //FIXME
+            //FIXME error handling
             const id = res.data._id;
             props.movePage(`/books/${id}`);
           }
         })
-    } else if (props.status === "update") {
+    } else if (id) {
       const method = "PUT",
             url = `http://localhost:3028/books/${id}`,
             body = Body;
       callDb(method, url, body)
         .then(res =>{
           if(res.status === 201){
-            //FIXME
             const id = res.data._id;
             props.movePage(`/books/${id}`);
           }

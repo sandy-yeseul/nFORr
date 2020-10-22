@@ -1,9 +1,8 @@
-import AboutPage from './About';
-import LandingPage from './Landing';
-import ViewBookPage from './ViewBook';
-import SearchPage from './Search';
-import ListPage from './List';
-import CreateBookPage from './CreateBook';
-import UpdateBookPage from './UpdateBook';
+import AboutPage from './aboutPage';
+import LandingPage from './landingPage';
+import ViewBookPage from './viewBook';
+import SearchPage from './searchBook';
+import ListPage from './bookList';
+import BookFormPage from './bookForm';
 
-export {LandingPage, ListPage, ViewBookPage, AboutPage, SearchPage, CreateBookPage, UpdateBookPage};
+export {LandingPage, ListPage, ViewBookPage, AboutPage, SearchPage, BookFormPage};
