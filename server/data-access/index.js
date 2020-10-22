@@ -58,7 +58,7 @@ async function insert(data) {
     const savedBook = await book.save();
     return savedBook;
   } catch (err) {
-    throw new Error(err)
+    throw new Error(err);
   }
 }
 async function update(id, item) {
@@ -67,7 +67,7 @@ async function update(id, item) {
     const updatedBook = await Book.findByIdAndUpdate(id, { $set: item }, options);
     return updatedBook;
   } catch (err) {
-    throw new Error(err)
+    throw new Error(err);
   }
 }
 async function remove(id) {

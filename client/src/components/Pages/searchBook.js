@@ -15,7 +15,7 @@ function SearchPage(){
         }
         getListandSet(dbElement)
             .then(res => setData(res))
-            .catch(err => setError(err));
+            .catch(err => setError(typeof err));
     }
     return (
         <>
@@ -23,9 +23,7 @@ function SearchPage(){
                 <input value={Author} onChange={(e) => setAuthor(e.target.value)} placeholder="검색"/>
                 <input type="submit" value ="검색하기" />
             </form>
-            { Data.length &&
-                <List obj={Data} />
-            }
+            { Data.length > 0 ? <List obj={Data}/> : <p>doesn't exist</p>}
             {error && <Error message={error} />}
         </>
     )

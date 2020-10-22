@@ -29,8 +29,8 @@ function Form(props) {
           setPrice(data.price);
           setPublishDate(data.publishDate);
         })
-        .catch((err) =>{
-          setError(err);
+        .catch((err) => {
+          setError(err.data);
         });
       setButton("변경하기");
     } else {
@@ -50,27 +50,28 @@ function Form(props) {
     };
     let dbElement = {};
     if (id) {
-      dbElement ={
+      dbElement = {
         method: "PUT",
         url: `http://localhost:3028/books/${id}`,
-        body: Body
-      }
-    } else  {
-      dbElement ={
+        body: Body,
+      };
+    } else {
+      dbElement = {
         method: "POST",
         url: "http://localhost:3028/books",
-        body: Body
-      }
+        body: Body,
+      };
     }
     callDb(dbElement)
       .then((res) => {
-        if(res.status === 201){
+        if (res.status === 201) {
           const id = res.data._id;
           props.movePage(`/books/${id}`);
-        }
+        } 
       })
-      .catch((err)=>{
-        setError(err);
+      .catch((err) => {
+        console.log(err)
+        setError(err.toString());
       });
   };
   return (
