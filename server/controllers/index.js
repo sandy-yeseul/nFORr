@@ -1,25 +1,25 @@
-const BookDb = require('../data-access/index');
-const makeBook = require('../book');
+const BookDb = require("../data-access/index");
+const makeBook = require("../book");
 async function getBooksController(httpRequest) {
   const author = httpRequest.query.author;
-  if(author){
+  if (author) {
     try {
-      const dbBooks = await BookDb.findAllCondtion({author: author});
+      const dbBooks = await BookDb.findAllCondtion({ author: author });
       const books = [];
-      for(let i=0; i<dbBooks.length; i++){
-        books.push(makeBook(dbBooks[i]))
-      } 
+      for (let i = 0; i < dbBooks.length; i++) {
+        books.push(makeBook(dbBooks[i]));
+      }
       const data = await {
         body: books,
         code: 200,
       };
       return data;
-    } catch(err){
+    } catch (err) {
       console.log(err);
       const data = {
         body: err,
-        code: 400
-      }
+        code: 400,
+      };
       return data;
     }
   } else {
@@ -28,7 +28,7 @@ async function getBooksController(httpRequest) {
       let dBbooks = await BookDb.findAll();
       let books = [];
       // TODO make it separated function
-      for(let i=0; i<Object.keys(dBbooks).length; i++){
+      for (let i = 0; i < Object.keys(dBbooks).length; i++) {
         books[i] = makeBook(dBbooks[i]);
       }
       const data = await {
@@ -37,11 +37,11 @@ async function getBooksController(httpRequest) {
       };
       return data;
     } catch (err) {
-      console.log('failed to get book list')
+      console.log("failed to get book list");
       const data = await {
         body: err,
-        code: 400
-      }
+        code: 400,
+      };
       return data;
     }
   }
@@ -57,7 +57,7 @@ async function getBookController(httpRequest) {
     };
     return data;
   } catch (err) {
-    console.log('failed get book')
+    console.log("failed get book");
     const data = await {
       body: err,
       code: 400,
@@ -68,7 +68,7 @@ async function getBookController(httpRequest) {
 async function postBookController(httpRequest) {
   try {
     // const book = await new BookDb(httpRequest.body);
-    const book= await makeBook(httpRequest.body);
+    const book = await makeBook(httpRequest.body);
     //FIXME it doesn't work
     // const author = await httpRequest.body.author;
     // const title = await httpRequest.body.title;
@@ -90,7 +90,7 @@ async function postBookController(httpRequest) {
     };
     return data;
   } catch (err) {
-    console.log('failed to add book')
+    console.log("failed to add book");
     const data = {
       body: err,
       code: 400,
@@ -100,21 +100,16 @@ async function postBookController(httpRequest) {
 }
 async function putBookController(httpRequest) {
   const id = await httpRequest.params.bookId;
-  const item = makeBook(httpRequest.body);
-  // TODO optimize edit book(copy?)
-  let test ={
-    title: item.title,
-    author: item.author,
-    publisher: item.publisher,
-    publishDate : item.publishDate,
-    seller: item.seller,
-    price: item.price
-  }
+  const book = makeBook(httpRequest.body);
+  let removeIdBook = {
+    ...book,
+  };
+  delete removeIdBook._id;
   try {
-    let dBupdatedBook = await BookDb.update(id, test);
-    let updatedBook = makeBook(dBupdatedBook);
+    const updatedBook = await BookDb.update(id, removeIdBook);
+    const formattedBook = makeBook(updatedBook);
     const data = {
-      body: updatedBook,
+      body: formattedBook,
       code: 201,
     };
     return data;
@@ -138,7 +133,7 @@ async function deleteBookController(httpRequest) {
     };
     return data;
   } catch (err) {
-    console.log('failed to delete book')
+    console.log("failed to delete book");
     const data = {
       body: err,
       code: 400,
