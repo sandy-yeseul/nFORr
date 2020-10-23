@@ -15,7 +15,7 @@ function SearchPage(){
         }
         getListandSet(dbElement)
             .then(res => setData(res))
-            .catch(err => setError(typeof err));
+            .catch(err => setError(err.toString()));
     }
     return (
         <>

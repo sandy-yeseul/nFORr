@@ -1,33 +1,37 @@
 const BookDb = require("../data-access/index");
 const makeBook = require("../book");
 
+const successOk = 200;
+const successCreate = 201;
+const badRequest = 400;
+
 async function searchBook(searchQuery) {
   try {
     const dbBooks = await BookDb.findAllCondtion({ author: searchQuery });
     const formattedBooks = await formatBooks(dbBooks);
-    return formatData(formattedBooks, 200);
+    return formatData(formattedBooks, successOk);
   } catch (err) {
     console.log(err);
-    return formatData(err.message, 400);
+    return formatData(err.message, badRequest);
   }
 }
 async function getAllBook() {
   try {
     const dbBooks = await BookDb.findAll();
     const formattedBooks = await formatBooks(dbBooks);
-    return formatData(formattedBooks, 200);
+    return formatData(formattedBooks, successOk);
   } catch (err) {
-    return formatData(err.message, 400);
+    return formatData(err.message, badRequest);
   }
 }
 async function getBook(id) {
   try {
     const dbBook = await BookDb.findById(id);
     const formattedBook = await formatBook(dbBook);
-    return formatData(formattedBook, 200);
+    return formatData(formattedBook, successOk);
   } catch (err) {
     console.log(err);
-    return formatData(err.message, 400);
+    return formatData(err.message, badRequest);
   }
 }
 async function addBook(body) {
@@ -35,10 +39,10 @@ async function addBook(body) {
     const book = await formatBook(body);
     const savedBook = await BookDb.insert(book);
     const formattedBook = await formatBook(savedBook);
-    return formatData(formattedBook, 201);
+    return formatData(formattedBook, successCreate);
   } catch (err) {
     console.log(err);
-    return formatData(err.message, 400);
+    return formatData(err.message, badRequest);
   }
 }
 async function updateBook(id, body) {
@@ -48,20 +52,20 @@ async function updateBook(id, body) {
   try {
     const updatedBook = await BookDb.update(id, removeIdBook);
     const formattedBook = await formatBook(updatedBook);
-    return formatData(formattedBook, 201);
+    return formatData(formattedBook, successCreate);
   } catch (err) {
     console.log(err);
-    return formatData(err.message, 400);
+    return formatData(err.message, badRequest);
   }
 }
 async function deleteBook(id) {
   try {
     const removedBook = await BookDb.remove(id);
     const formattedBook = formatBook(removedBook);
-    return formatData(formattedBook, 201);
+    return formatData(formattedBook, successCreate);
   } catch (err) {
     console.log(err);
-    return formatData(err.message, 400);
+    return formatData(err.message, badRequest);
   }
 }
 module.exports = {

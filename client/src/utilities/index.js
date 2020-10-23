@@ -11,7 +11,7 @@ async function callDb({ method, url, body = null } = {}) {
     });
     return result;
   } catch(err){
-    return err;
+    throw new Error(err.response.data);
   }
 }
 async function getListandSet(dbElement) {

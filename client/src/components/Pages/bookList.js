@@ -14,7 +14,7 @@ function ListPage(){
         }
         getListandSet(dbElement)
             .then(res => setItems(res))
-            .catch(err => setError(err));
+            .catch(err => setError(err.toString()));
     }, []);
     return(
         <div>

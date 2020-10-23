@@ -16,7 +16,7 @@ function ViewBookPage(props){
         }
         callDb(dbElement)
             .then(res => setData(res.data))
-            .catch(err => setError(err));
+            .catch(err => setError(err.toString()));
     }, [id]);
     return(
         <div>
