@@ -5,7 +5,7 @@ function Detail(props) {
     return (
         <>
         {data && Object.keys(data).map(item =>{
-            if(item === "_id") return
+            if(item === "_id") return null
             return <p key={item.toString()}>{item}: {data[item]}</p>
         })}
         </>
