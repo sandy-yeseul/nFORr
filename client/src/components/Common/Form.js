@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { callDb } from "../../utilities";
-import { Error } from "../Common";
+import { Error, Button } from "../Common";
 
 function Form(props) {
   const [title, setTitle] = useState("");
@@ -9,7 +9,7 @@ function Form(props) {
   const [seller, setSeller] = useState("");
   const [price, setPrice] = useState("");
   const [publishDate, setPublishDate] = useState("");
-  const [Button, setButton] = useState("");
+  const [buttonText, setButtonText] = useState("");
   const [error, setError] = useState(null);
   const id = props.id;
 
@@ -32,9 +32,9 @@ function Form(props) {
         .catch((err) => {
           setError(err.data);
         });
-      setButton("변경하기");
+      setButtonText("변경하기");
     } else {
-      setButton("추가하기");
+      setButtonText("추가하기");
     }
   }, [id]);
 
@@ -120,7 +120,8 @@ function Form(props) {
           onChange={(e) => setPrice(e.target.value)}
           placeholder="판매가"
         />
-        <input type="submit" value={Button} />
+        {/* <input type="submit" value={Button} /> */}
+        <Button type={'submit'} value={buttonText} />
       </form>
       {error && <Error message={error} />}
     </>

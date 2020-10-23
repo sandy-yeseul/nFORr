@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { withRouter } from "react-router-dom";
 import { getListandSet } from "../../utilities";
-import { List, Error } from "../Common";
+import { List, Error,Button } from "../Common";
 
 function SearchPage() {
   const [Author, setAuthor] = useState("");
@@ -34,7 +34,7 @@ function SearchPage() {
           onChange={(e) => setAuthor(e.target.value)}
           placeholder="검색"
         />
-        <input type="submit" value="검색하기" />
+        <Button type={'submit'} value={'검색하기'} />
       </form>
       {state && <p>{state}</p>}
       {Data.length > 0 ? <List obj={Data} /> : null}

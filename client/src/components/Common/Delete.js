@@ -1,5 +1,6 @@
 import React from 'react';
 import {callDb} from '../../utilities';
+import {Button} from './index';
 
 function Delete(props) {
     const id = props.id;
@@ -19,7 +20,7 @@ function Delete(props) {
     }
     return (
         <>
-            <button onClick={deleteHandler}>삭제하기</button>
+            <Button handler={deleteHandler} value={'삭제하기'} />
         </>
     )
 }
