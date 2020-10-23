@@ -20,7 +20,7 @@ function ViewBookPage(props){
     }, [id]);
     return(
         <div>
-        {data && <Detail data={data} />}
+        {data? <Detail data={data} /> : <p>loading...</p>}
         <a href={`/books/update/${id}`}>Update</a>
         <Delete id={id} movePage={buildMovePage(props)}/>
         {error && <Error message={error} />}

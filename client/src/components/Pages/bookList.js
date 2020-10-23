@@ -18,9 +18,9 @@ function ListPage(){
     }, []);
     return(
         <div>
-            {Items.length > 0 &&
+            {Items.length > 0 ?
                 <List obj={Items} />
-            }
+            : <p>loading..</p>}
             {error && <Error message={error} />}
         </div>
     )
