@@ -2,13 +2,14 @@
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Nanum Myeongjo";
-  font-weight: 500;
+  color: #000000;
+  font-weight: 500;  
+  height: 100vh;
+  /* margin-left: auto;
+  margin-right: auto;
+  width: 50vw; */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  width: 50vw;
-  height: 100vh;
-  margin-left: auto;
-  margin-right: auto;
   position: relative;
 }
 a {
@@ -25,10 +26,9 @@ a {
   justify-content: space-around;
   margin-bottom: 3vh;
   padding: 2vh 0vh;
-  border-bottom: 1vh solid #000000;
+  border-bottom: 0.5vh solid #FFFFFF;
 }
 .Header a {
-  font-weight: 900;
   font-size: 3vh;
   display: inline-block;
   width: 5vw;
@@ -36,15 +36,21 @@ a {
   text-align: center;
 }
 /*sample*/
-.Header a:hover{
+/* .Header a:hover{
   font-size: 3.1vh;
   color: white;
   -webkit-text-stroke: 0.1vh #000000;
-}
+} */
 .Footer{
   position: absolute;
   bottom: 0;
 }
 .Footer a{
   margin: 0.5vh;
+}
+.Landing{
+  text-align: center;
+  padding-top: 40vh;
+  user-select: none;
+  height: 60vh;
 }
