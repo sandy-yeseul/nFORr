@@ -2,7 +2,7 @@ import React from 'react';
 
 function Footer(){
     return (
-        <footer className='Footer'>
+        <footer className='Footer'id='Footer'>
             <a href="/">HomePage</a>
             <a href="/books">List</a>
             <a href="/books/new">Post</a>
