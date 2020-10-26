@@ -9,6 +9,7 @@ function LandingPage(){
         document.body.style.margin='auto';
         document.getElementById('Header').style.display= 'none';
         document.getElementById('Footer').style.display='none';
+        document.getElementById('root').style.width = '100vw';
     }, [])
     return (
         <a href='/home'>
