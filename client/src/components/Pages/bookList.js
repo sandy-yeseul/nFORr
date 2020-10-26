@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { callDb, setIdTitleList, filterPublished } from "../../utilities";
 import { withRouter } from "react-router-dom";
 import { List, Button, Error } from "../Common";
+import { ButtonGroup } from '@material-ui/core';
 
 function ListPage() {
   const [Data, setData] = useState([]);
@@ -37,8 +38,10 @@ function ListPage() {
     <div>
       {error && <Error message={error} />}
       {Books.length > 0 ? <List obj={Books} /> : <p>loading..</p>}
-      <Button value={buttonText} handler={buttonHandler} />
-      <Button value={'all'} handler={allButtonHandler} />
+      <ButtonGroup variant="outlined" >
+        <Button value={buttonText} handler={buttonHandler} color='primary'/>
+        <Button value={'all'} handler={allButtonHandler} color='secondary' />
+      </ButtonGroup>
     </div>
   );
 }
