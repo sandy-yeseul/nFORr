@@ -6,8 +6,9 @@ function makeButton(props){
    const value = props.value;
    const type = props.type;
    const color = props.color;
+   const variant = props.variant;
    return(
-       <Button onClick={handler} variant="outlined" color={color}>{value}</Button>
+       <Button type={type} onClick={handler} color={color} variant={variant}>{value}</Button>
    )
 }
 export {makeButton};

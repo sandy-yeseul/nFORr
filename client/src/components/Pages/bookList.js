@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { callDb, setIdTitleList, filterPublished } from "../../utilities";
 import { withRouter } from "react-router-dom";
-import { List, Button, Error } from "../Common";
-import { ButtonGroup } from '@material-ui/core';
+import { List, Error } from "../Common";
+import Button from "@material-ui/core/Button";
+import ButtonGroup from "@material-ui/core/ButtonGroup";
 
 function ListPage() {
   const [Data, setData] = useState([]);
   const [Books, setBooks] = useState([]);
   const [error, setError] = useState(null);
   const [published, setPublished] = useState(true);
-  const [buttonText, setButtonText] = useState("출판");
   useEffect(() => {
     const dbElement = {
       method: "GET",
@@ -24,24 +24,38 @@ function ListPage() {
       .catch((err) => setError(err.toString()));
   }, []);
   const buttonHandler = () => {
-    if (published) setButtonText("미출판");
-    else setButtonText("출판");
     const filteredBooks = filterPublished(Data, published);
     const books = setIdTitleList(filteredBooks);
     setBooks(books);
     setPublished(!published);
   };
-  const allButtonHandler = () =>{
-      setBooks(setIdTitleList(Data));
-  }
+  const allButtonHandler = () => {
+    setBooks(setIdTitleList(Data));
+  };
   return (
     <div>
       {error && <Error message={error} />}
-      {Books.length > 0 ? <List obj={Books} /> : <p>loading..</p>}
-      <ButtonGroup variant="outlined" >
-        <Button value={buttonText} handler={buttonHandler} color='primary'/>
-        <Button value={'all'} handler={allButtonHandler} color='secondary' />
+      just used
+      <ButtonGroup color="primary" aria-label="outlined primary button group">
+        <Button onClick={allButtonHandler}>전체보기</Button>
+        <Button
+          onClick={() => {
+            setPublished(true);
+            buttonHandler();
+          }}
+        >
+          출판
+        </Button>
+        <Button
+          onClick={() => {
+            setPublished(false);
+            buttonHandler();
+          }}
+        >
+          미출판
+        </Button>
       </ButtonGroup>
+      {Books.length > 0 ? <List obj={Books} /> : <p>loading..</p>}
     </div>
   );
 }
