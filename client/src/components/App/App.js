@@ -9,7 +9,6 @@ import {HomePage, LandingPage, ListPage, AboutPage, SearchPage, BookFormPage, Vi
 function App() {
   return (
     <Router>
-    <Header />
       <Switch>
         <Route exact path='/' component={LandingPage} />
         <Route exact path='/home' component={HomePage} />
@@ -20,7 +19,6 @@ function App() {
         <Route exact path='/search' component={SearchPage} />
         <Route exact path='/books/:bookId' component={ViewBookPage} />
       </Switch>
-      < Footer />
     </Router>
   );
 }

@@ -35,7 +35,6 @@ function ListPage() {
   return (
     <div>
       {error && <Error message={error} />}
-      just used
       <ButtonGroup color="primary" aria-label="outlined primary button group">
         <Button onClick={allButtonHandler}>전체보기</Button>
         <Button

@@ -7,18 +7,15 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   position: relative;
-  /* background: linear-gradient(#8080805e, #80808094), url(/static/media/sky.c26c84bb.jpg) no-repeat center;
+  color: #faf3e6;
+  background: url("./images/sky.jpg") no-repeat center;
   background-size: cover;
-  background-blend-mode: lighten; */
 }
-#root{
-  margin-left: auto;
-  margin-right: auto;
-  width: 50vw;
+#root {
   height: 100vh;
 }
 a {
-  color: #000000;
+  color: #faf3e6;
   text-decoration: none;
   display: block;
 }
@@ -31,8 +28,6 @@ a {
   justify-content: space-around;
   margin-bottom: 3vh;
   padding: 2vh 0vh;
-  background-color: #dbd7d3;
-  border-bottom: 0.5vh solid #dbd7d3;
   border-radius: 15px 30px;
 }
 .Header a {
@@ -42,12 +37,6 @@ a {
   height: 3vh;
   text-align: center;
 }
-/*sample*/
-/* .Header a:hover{
-  font-size: 3.1vh;
-  color: white;
-  -webkit-text-stroke: 0.1vh #000000;
-} */
 .Footer {
   position: absolute;
   bottom: 0;
@@ -60,4 +49,79 @@ a {
   padding-top: 40vh;
   user-select: none;
   height: 60vh;
+}
+.BodyStructure {
+  width: 40vw;
+  height: 0vh;
+  margin-top: 7vh;
+  margin-left: 30vw;
+  padding: 2vh;
+  color: #faf3e6 !important;
+  box-shadow: 0px 5px 6px -3px rgba(0, 0, 0, 0.2),
+    0px 9px 12px 1px rgba(0, 0, 0, 0.14), 0px 3px 16px 2px rgba(0, 0, 0, 0.12);
+  border-radius: 4px;
+  float: left;
+  animation-name: bodyShowUp;
+  animation-duration: 3s;
+  animation-fill-mode: forwards;
+}
+.HeaderStructure {
+  width: max-content;
+  height: 50vh;
+  margin-top: 30vh;
+  margin-right: 15vw;
+  padding: 1vw;
+  background-color: transparent !important;
+  color: #272625 !important;
+  opacity: 0;
+  float: right;
+  animation: headerShowUp 3s 3s;
+  animation-fill-mode: forwards;
+}
+@keyframes bodyShowUp {
+  from {
+    height: 0vh;
+    background-color: #272625;
+  }
+  to {
+    height: 85vh;
+    background-color: #272625;
+  }
+}
+@keyframes headerShowUp {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 100;
+  }
+}
+@media (max-width: 400px) {
+  .BodyStructure {
+    position: absolute;
+    top: 500px;
+    width: 20px;
+    height: 20px;
+  }
+  .HeaderStructure {
+    position: absolute;
+    top: 0;
+  }
+}
+@media (orientation: landscape) {
+  body {
+    color: #000000;
+  }
+}
+/* and selector */
+@media (orientation: landscape) and (max-width: 200px) {
+  body {
+    color: #000000;
+  }
+}
+/* or selector */
+@media (orientation: landscape), (max-width: 200px) {
+  body {
+    color: #000000;
+  }
 }

@@ -1,12 +1,14 @@
-import React from 'react';
-import {withRouter} from 'react-router-dom';
+import React from "react";
+import { withRouter } from "react-router-dom";
+import { Header } from "../Common";
 
-function homePage() {
-    return (
-        <div>
-            hi
-        </div>
-    )
+function homePage(props) {
+  return (
+    <>
+      <div className="BodyStructure">hi</div>
+      <Header />
+    </>
+  );
 }
 
-export default withRouter(homePage)
+export default withRouter(homePage);
