@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { callDb, setIdTitleList, filterPublished } from "../../utilities";
 import { withRouter } from "react-router-dom";
-import { List, Error, Header } from "../Common";
+import { List, Error, Header, Card } from "../Common";
 import Button from "@material-ui/core/Button";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 
@@ -10,6 +10,7 @@ function ListPage() {
   const [Books, setBooks] = useState([]);
   const [error, setError] = useState(null);
   const [published, setPublished] = useState(true);
+  const [img, setImg] = useState(null)
   useEffect(() => {
     const dbElement = {
       method: "GET",
@@ -18,6 +19,7 @@ function ListPage() {
     callDb(dbElement)
       .then((res) => {
         setData(res.data);
+        setImg(res.data[6].image)
         const books = setIdTitleList(res.data);
         setBooks(books);
       })
@@ -54,7 +56,7 @@ function ListPage() {
           미출판
         </Button>
       </ButtonGroup> */}
-      <div className="BodyStructure">{Books && Books.length > 0 ? <List obj={Books} /> : <p>loading..</p>}</div>
+      <div className="BodyStructure">{img != null?  <Card imgSource={img} /> : <p>loading..</p>}</div>
       <Header className="HeaderStructure" />
     </>
   );

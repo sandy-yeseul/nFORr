@@ -29,6 +29,7 @@ app.put('*', upload.single('image'), (req, res, next) =>{
   if(req.file) req.body.image = `image/${req.file.filename}`
   next();
 })
+app.use('/image', express.static('./uploads'));
 
 // FOR TEST
 // app.get("/", async(req, res) =>{
