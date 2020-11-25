@@ -5,8 +5,8 @@ import { Header } from "../Common";
 function homePage(props) {
   return (
     <>
-      <div className="BodyStructure">hi</div>
-      <Header />
+      <div className="BodyAnimation BodyStructure">Hi</div>
+      <Header className="HeaderAnimation HeaderStructure" />
     </>
   );
 }

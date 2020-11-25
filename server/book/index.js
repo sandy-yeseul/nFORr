@@ -9,6 +9,7 @@ function BuildMakeBook(generateId){
     publishDate = "",
     seller = "",
     price = "",
+    image = "",
   } = {}) {
     if (!title) {
       throw new Error("Book must have Title");
@@ -36,7 +37,8 @@ function BuildMakeBook(generateId){
       publisher: publisher,
       publishDate: publishDate,
       seller: seller,
-      price: price
+      price: price,
+      image: image
     });
     return book;
   }

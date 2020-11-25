@@ -1,10 +1,10 @@
 import React from "react";
 import Paper from "@material-ui/core/Paper";
 
-function Header() {
+function Header({className}) {
   return (
     <>
-      <div className="HeaderStructure" >
+      <div className={className} >
         <h2>Filter</h2>
         <a href="#">Published</a>
         <a href="#">Unpublished</a>

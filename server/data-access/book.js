@@ -6,10 +6,8 @@ const bookSchema = mongoose.Schema({
     publisher: String,
     publishDate: String,
     seller: String,
-    price: String
+    price: String,
+    image: String
 });
 
 const Book = module.exports =mongoose.model('Book', bookSchema);
-// module.exports.get = function (callback, limit) {
-//     Book.find(callback).limit(limit);
-// }

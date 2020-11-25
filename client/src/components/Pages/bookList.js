@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { callDb, setIdTitleList, filterPublished } from "../../utilities";
 import { withRouter } from "react-router-dom";
-import { List, Error } from "../Common";
+import { List, Error, Header } from "../Common";
 import Button from "@material-ui/core/Button";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 
@@ -33,9 +33,9 @@ function ListPage() {
     setBooks(setIdTitleList(Data));
   };
   return (
-    <div>
+    <>
       {error && <Error message={error} />}
-      <ButtonGroup color="primary" aria-label="outlined primary button group">
+      {/* <ButtonGroup color="primary" aria-label="outlined primary button group">
         <Button onClick={allButtonHandler}>전체보기</Button>
         <Button
           onClick={() => {
@@ -53,9 +53,10 @@ function ListPage() {
         >
           미출판
         </Button>
-      </ButtonGroup>
-      {Books.length > 0 ? <List obj={Books} /> : <p>loading..</p>}
-    </div>
+      </ButtonGroup> */}
+      <div className="BodyStructure">{Books && Books.length > 0 ? <List obj={Books} /> : <p>loading..</p>}</div>
+      <Header className="HeaderStructure" />
+    </>
   );
 }
 export default withRouter(ListPage);

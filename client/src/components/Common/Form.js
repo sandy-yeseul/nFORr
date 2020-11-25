@@ -10,6 +10,7 @@ function Form(props) {
   const [price, setPrice] = useState("");
   const [publishDate, setPublishDate] = useState("");
   const [buttonText, setButtonText] = useState("");
+  const [file, setFile] = useState();
   const [error, setError] = useState(null);
   const id = props.id;
 
@@ -40,26 +41,34 @@ function Form(props) {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    const Body = {
-      title: title,
-      author: author,
-      publisher: publisher,
-      seller: seller,
-      price: price,
-      publishDate: publishDate,
-    };
+    // const Body = {
+    //   title: title,
+    //   author: author,
+    //   publisher: publisher,
+    //   seller: seller,
+    //   price: price,
+    //   publishDate: publishDate,
+    // };
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('author', author);
+    formData.append('publisher', publisher);
+    formData.append('seller', seller);
+    formData.append('price', price);
+    formData.append('publishDate', publishDate);
+    formData.append('image', file, file.name)
     let dbElement = {};
     if (id) {
       dbElement = {
         method: "PUT",
         url: `http://localhost:3028/books/${id}`,
-        body: Body,
+        body: formData,
       };
     } else {
       dbElement = {
         method: "POST",
         url: "http://localhost:3028/books",
-        body: Body,
+        body: formData,
       };
     }
     callDb(dbElement)
@@ -120,6 +129,13 @@ function Form(props) {
           onChange={(e) => setPrice(e.target.value)}
           placeholder="판매가"
         />
+        <input
+            type="file"
+            onChange={(e) => setFile(e.target.files[0])}
+            id="photo"
+            file="photo"
+            accept=".gif, .jpg, .jpeg, .png"
+          />
         {/* <input type="submit" value={Button} /> */}
         <Button type={'submit'} value={buttonText} />
       </form>

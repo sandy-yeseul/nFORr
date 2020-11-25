@@ -7,7 +7,9 @@ const badRequest = 400;
 
 async function searchBook(searchQuery) {
   try {
-    const dbBooks = await BookDb.findAllCondtion({$or:[{title: searchQuery}, { author: searchQuery }]});
+    const dbBooks = await BookDb.findAllCondtion({
+      $or: [{ title: searchQuery }, { author: searchQuery }],
+    });
     const formattedBooks = await formatBooks(dbBooks);
     return formatData(formattedBooks, successOk);
   } catch (err) {
@@ -93,4 +95,3 @@ function formatData(data, code) {
     code: code,
   };
 }
- 

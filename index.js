@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
+const {upload} = require('./server/callback/Middleware')
 const callback = require("./server/callback");
 const {
   getBooksController,
@@ -20,6 +21,14 @@ makeDb();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
+app.post('*', upload.single('image'), (req, res, next) =>{
+  if(req.file) req.body.image = `image/${req.file.filename}`
+  next();
+})
+app.put('*', upload.single('image'), (req, res, next) =>{
+  if(req.file) req.body.image = `image/${req.file.filename}`
+  next();
+})
 
 // FOR TEST
 // app.get("/", async(req, res) =>{
