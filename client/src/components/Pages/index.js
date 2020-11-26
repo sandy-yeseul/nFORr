@@ -5,5 +5,6 @@ import SearchPage from './searchBook';
 import ListPage from './bookList';
 import BookFormPage from './bookForm';
 import HomePage from './homePage';
+import UpdateBookPage from './UpdateBookPage'
 
-export {HomePage, LandingPage, ListPage, ViewBookPage, AboutPage, SearchPage, BookFormPage};
+export {UpdateBookPage, HomePage, LandingPage, ListPage, ViewBookPage, AboutPage, SearchPage, BookFormPage};

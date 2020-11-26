@@ -1,147 +1,116 @@
-import React, { useState, useEffect } from "react";
-import { callDb } from "../../utilities";
-import { Error, Button } from "../Common";
+import React, { useState } from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import { Error, FormField, Button } from "../Common";
 
-function Form(props) {
-  const [title, setTitle] = useState("");
-  const [author, setAuthor] = useState("");
-  const [publisher, setPublisher] = useState("");
-  const [seller, setSeller] = useState("");
-  const [price, setPrice] = useState("");
-  const [publishDate, setPublishDate] = useState("");
-  const [buttonText, setButtonText] = useState("");
-  const [file, setFile] = useState();
-  const [error, setError] = useState(null);
-  const id = props.id;
-
-  useEffect(() => {
-    if (id) {
-      const dbElement = {
-        method: "GET",
-        url: `http://localhost:3028/books/${id}`,
-      };
-      callDb(dbElement)
-        .then((res) => res.data)
-        .then((data) => {
-          setTitle(data.title);
-          setAuthor(data.author);
-          setPublisher(data.publisher);
-          setSeller(data.seller);
-          setPrice(data.price);
-          setPublishDate(data.publishDate);
-        })
-        .catch((err) => {
-          setError(err.data);
-        });
-      setButtonText("변경하기");
-    } else {
-      setButtonText("추가하기");
+export default function Form({ fields, buttonText, handler }) {
+  const classes = useStyles();
+  const [fieldValues, setFieldValues] = useState(fields);
+  const [errors, setErrors] = useState({});
+  const [image, setImage] = useState();
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    const temp = { ...fieldValues };
+    temp[name] = value;
+    setFieldValues(temp);
+  };
+  const enterHandler = (e) => {
+    if (e.keyCode === 13) {
+      e.preventDefault();
+      submitHandler(e);
     }
-  }, [id]);
-
+  };
   const submitHandler = (e) => {
     e.preventDefault();
-    // const Body = {
-    //   title: title,
-    //   author: author,
-    //   publisher: publisher,
-    //   seller: seller,
-    //   price: price,
-    //   publishDate: publishDate,
-    // };
     const formData = new FormData();
-    formData.append('title', title);
-    formData.append('author', author);
-    formData.append('publisher', publisher);
-    formData.append('seller', seller);
-    formData.append('price', price);
-    formData.append('publishDate', publishDate);
-    formData.append('image', file, file.name)
-    let dbElement = {};
-    if (id) {
-      dbElement = {
-        method: "PUT",
-        url: `http://localhost:3028/books/${id}`,
-        body: formData,
-      };
-    } else {
-      dbElement = {
-        method: "POST",
-        url: "http://localhost:3028/books",
-        body: formData,
-      };
+    Object.keys(fieldValues).map((field) => {
+      formData.append(`${field.toString()}`, fieldValues.field);
+      return formData;
+    });
+    if (image) {
+      formData.append("image", image, image.name);
     }
-    callDb(dbElement)
-      .then((res) => {
-        if (res.status === 201) {
-          const id = res.data._id;
-          props.movePage(`/books/${id}`);
-        } 
-      })
-      .catch((err) => {
-        setError(err.toString());
-      });
+    handler(formData);
   };
+
   return (
     <>
-      <form onSubmit={submitHandler}>
-        <label>제목</label>
+      <form className={classes.root}>
+        {fields &&
+          Object.keys(fields).map((field) => {
+            if (field === "title" || field === "author") {
+              return (
+                <FormField
+                  name={field}
+                  label={field}
+                  value={fieldValues[field]}
+                  onChange={handleInputChange}
+                  onKeyDown={(e) => enterHandler(e)}
+                  error={errors[field]}
+                  key={field}
+                  required
+                />
+              );
+            }
+            if (field === "publishDate") {
+              return (
+                <FormField
+                  name={field}
+                  label={"publish date"}
+                  value={fieldValues[field]}
+                  onChange={handleInputChange}
+                  type="date"
+                  shrink
+                  key={field}
+                />
+              );
+            }
+            if (field === "price") {
+              return (
+                <FormField
+                  name={field}
+                  label={field}
+                  value={fieldValues[field]}
+                  onChange={handleInputChange}
+                  onKeyDown={(e) => enterHandler(e)}
+                  error={errors[field]}
+                  type="number"
+                  min={0}
+                  key={field}
+                />
+              );
+            }
+            return (
+              <FormField
+                name={field}
+                label={field}
+                value={fieldValues[field]}
+                onChange={handleInputChange}
+                onKeyDown={(e) => enterHandler(e)}
+                error={errors[field]}
+                key={field}
+              />
+            );
+          })}
         <input
-          type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          required
-          placeholder="제목"
+          type="file"
+          onChange={(e) => setImage(e.target.files[0])}
+          id="photo"
+          file="photo"
+          accept=".gif, .jpg, .jpeg, .png"
         />
-        <label>작가</label>
-        <input
-          type="text"
-          value={author}
-          onChange={(e) => setAuthor(e.target.value)}
-          required
-          placeholder="작가"
-        />
-        <label>출판사</label>
-        <input
-          type="text"
-          value={publisher}
-          onChange={(e) => setPublisher(e.target.value)}
-          placeholder="출판사"
-        />
-        <label>출판일</label>
-        <input
-          type="text"
-          value={publishDate}
-          onChange={(e) => setPublishDate(e.target.value)}
-          placeholder="출판일"
-        />
-        <label>판매처</label>
-        <input
-          type="text"
-          value={seller}
-          onChange={(e) => setSeller(e.target.value)}
-          placeholder="판매처"
-        />
-        <label>판매가</label>
-        <input
-          type="text"
-          value={price}
-          onChange={(e) => setPrice(e.target.value)}
-          placeholder="판매가"
-        />
-        <input
-            type="file"
-            onChange={(e) => setFile(e.target.files[0])}
-            id="photo"
-            file="photo"
-            accept=".gif, .jpg, .jpeg, .png"
-          />
-        {/* <input type="submit" value={Button} /> */}
-        <Button type={'submit'} value={buttonText} />
+        <Button text={buttonText} onClick={e=>submitHandler(e)}/>
       </form>
-      {error && <Error message={error} />}
+      {/* {errors && <Error message={errors} />} */}
     </>
   );
 }
-
-export default Form;
+const useStyles = makeStyles((theme) => ({
+  root: {
+    position: "relative",
+    overflow: "hidden",
+    "& > *": {
+      margin: theme.spacing(3),
+      width: "max-content",
+    },
+  },
+}));

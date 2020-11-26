@@ -7,5 +7,6 @@ import Form from './Form';
 import Detail from './Detail';
 import Error from './Error';
 import Card from './Card';
+import FormField from './FormField';
 
-export {Header,Footer, Button, Delete, List, Form, Detail, Error, Card};
+export {Header,Footer, Button, Delete, List, Form, Detail, Error, Card, FormField};

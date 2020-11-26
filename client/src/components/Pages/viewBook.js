@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { callDb, buildMovePage } from "../../utilities";
+import { callDb } from "../../utilities";
 import { useParams } from "react-router-dom";
 import { withRouter } from "react-router-dom";
 import { Delete, Detail, Error, Header, Button } from "../Common";
