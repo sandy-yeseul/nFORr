@@ -3,7 +3,7 @@ import Button from "@material-ui/core/Button";
 
 export default function MakeButton(props) {
   return (
-    <Button variant="contained" {...props}>
+    <Button variant="outlined" {...props}>
       {props.text}
     </Button>
   );

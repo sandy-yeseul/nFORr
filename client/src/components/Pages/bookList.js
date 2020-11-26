@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Skeleton from '@material-ui/lab/Skeleton';
 import { callDb } from "../../utilities";
 import { withRouter } from "react-router-dom";
 import { Error, Header, Card } from "../Common";
@@ -43,7 +44,7 @@ function ListPage() {
               return <Card book={book} key={`${i}${book.title}`} />;
             })
           ) : (
-            <p>loading..</p>
+            <Skeleton variant="rect" width="300px" height="100px" />
           )}
       </div>
       <Header
