@@ -5,6 +5,8 @@ import { Error, Header, Card } from "../Common";
 
 function ListPage() {
   const [Books, setBooks] = useState([]);
+  const [search, setSearch] = useState("");
+  const [bookList, setBookList] = useState([]);
   const [error, setError] = useState(null);
   useEffect(() => {
     const dbElement = {
@@ -14,47 +16,56 @@ function ListPage() {
     callDb(dbElement)
       .then((res) => {
         setBooks(res.data);
+        setBookList(res.data);
       })
       .catch((err) => setError(err.toString()));
   }, []);
-  // const buttonHandler = () => {
-  //   const filteredBooks = filterPublished(Data, published);
-  //   const books = setIdTitleList(filteredBooks);
-  //   setBooks(books);
-  //   setPublished(!published);
-  // };
-  // const allButtonHandler = () => {
-  //   setBooks(setIdTitleList(Data));
-  // };
+  const searchHandler = () => {
+    const searchedList = searchBook(search, Books);
+    if (!searchedList) {
+      setError("Doesn't have that book");
+      setBookList(Books);
+      return;
+    }
+    setBookList(searchedList);
+  };
   return (
     <>
-      {error && <Error message={error} />}
-      {/* <ButtonGroup color="primary" aria-label="outlined primary button group">
-        <Button onClick={allButtonHandler}>전체보기</Button>
-        <Button
-          onClick={() => {
-            setPublished(true);
-            buttonHandler();
-          }}
-        >
-          출판
-        </Button>
-        <Button
-          onClick={() => {
-            setPublished(false);
-            buttonHandler();
-          }}
-        >
-          미출판
-        </Button>
-      </ButtonGroup> */}
       <div className="BodyStructure">
-        {Books.length>0 ?  Books.map(book =>{
-          return <Card book={book} />
-        }): <p>loading..</p>}
+      {error && <Error message={error} />}
+        {bookList.length > 0 ? (
+          bookList.map((book, i) => {
+            return <Card book={book} key={`${i}${book.title}`} />;
+          })
+        ) : (
+          <p>loading..</p>
+        )}
       </div>
-      <Header className="HeaderStructure" />
+      <Header setSearch={setSearch} searchHandler={searchHandler} />
     </>
   );
 }
 export default withRouter(ListPage);
+function searchBook(searchQuery, bookList) {
+  const books = [...bookList];
+  if (searchQuery === "") {
+    return books;
+  }
+  const filtered = books.filter(
+    (book) =>
+      book.title.includes(searchQuery) ||
+      book.author.includes(searchQuery) ||
+      book.publisher.includes(searchQuery)
+  );
+  console.log(filtered);
+  if (filtered.length < 1) return false;
+  return filtered;
+}
+function filterPublish(published, bookList) {
+  const books = [...bookList];
+  if (published) {
+    return books.filter((book) => book.publisher.length > 0);
+  } else {
+    return books.filter((book) => book.publisher.length < 1);
+  }
+}

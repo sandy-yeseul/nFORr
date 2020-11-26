@@ -35,50 +35,8 @@ export default function Form({ fields, buttonText, handler }) {
   return (
     <>
       <form className={classes.root}>
-        {fields &&
-          Object.keys(fields).map((field) => {
-            if (field === "title" || field === "author") {
-              return (
-                <FormField
-                  name={field}
-                  label={field}
-                  value={fieldValues[field]}
-                  onChange={handleInputChange}
-                  onKeyDown={(e) => enterHandler(e)}
-                  error={errors[field]}
-                  key={field}
-                  required
-                />
-              );
-            }
-            if (field === "publishDate") {
-              return (
-                <FormField
-                  name={field}
-                  label={"publish date"}
-                  value={fieldValues[field]}
-                  onChange={handleInputChange}
-                  type="date"
-                  shrink
-                  key={field}
-                />
-              );
-            }
-            if (field === "price") {
-              return (
-                <FormField
-                  name={field}
-                  label={field}
-                  value={fieldValues[field]}
-                  onChange={handleInputChange}
-                  onKeyDown={(e) => enterHandler(e)}
-                  error={errors[field]}
-                  type="number"
-                  min={0}
-                  key={field}
-                />
-              );
-            }
+        {Object.keys(fields).map((field) => {
+          if (field === "title" || field === "author") {
             return (
               <FormField
                 name={field}
@@ -88,9 +46,50 @@ export default function Form({ fields, buttonText, handler }) {
                 onKeyDown={(e) => enterHandler(e)}
                 error={errors[field]}
                 key={field}
+                required
               />
             );
-          })}
+          }
+          if (field === "publishDate") {
+            return (
+              <FormField
+                name={field}
+                label={"publish date"}
+                value={fieldValues[field]}
+                onChange={handleInputChange}
+                type="date"
+                shrink
+                key={field}
+              />
+            );
+          }
+          if (field === "price") {
+            return (
+              <FormField
+                name={field}
+                label={field}
+                value={fieldValues[field]}
+                onChange={handleInputChange}
+                onKeyDown={(e) => enterHandler(e)}
+                error={errors[field]}
+                type="number"
+                min={0}
+                key={field}
+              />
+            );
+          }
+          return (
+            <FormField
+              name={field}
+              label={field}
+              value={fieldValues[field]}
+              onChange={handleInputChange}
+              onKeyDown={(e) => enterHandler(e)}
+              error={errors[field]}
+              key={field}
+            />
+          );
+        })}
         <input
           type="file"
           onChange={(e) => setImage(e.target.files[0])}
@@ -98,7 +97,7 @@ export default function Form({ fields, buttonText, handler }) {
           file="photo"
           accept=".gif, .jpg, .jpeg, .png"
         />
-        <Button text={buttonText} onClick={e=>submitHandler(e)}/>
+        <Button text={buttonText} onClick={(e) => submitHandler(e)} />
       </form>
       {/* {errors && <Error message={errors} />} */}
     </>

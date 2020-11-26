@@ -8,5 +8,6 @@ import Detail from './Detail';
 import Error from './Error';
 import Card from './Card';
 import FormField from './FormField';
+import Search from './Search'
 
-export {Header,Footer, Button, Delete, List, Form, Detail, Error, Card, FormField};
+export {Search, Header,Footer, Button, Delete, List, Form, Detail, Error, Card, FormField};
