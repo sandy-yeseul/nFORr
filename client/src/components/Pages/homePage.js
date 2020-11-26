@@ -6,7 +6,7 @@ function homePage(props) {
   return (
     <>
       <div className="BodyAnimation BodyStructure">Hi</div>
-      <Header className="HeaderAnimation HeaderStructure" />
+      <Header className="HeaderAnimation" />
     </>
   );
 }

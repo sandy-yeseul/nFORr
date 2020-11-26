@@ -28,20 +28,29 @@ function ListPage() {
       return;
     }
     setBookList(searchedList);
+    setError("");
+  };
+  const publishFilterHandler = (published) => {
+    const filtered = filterPublish(published, Books);
+    setBookList(filtered);
   };
   return (
     <>
       <div className="BodyStructure">
-      {error && <Error message={error} />}
-        {bookList.length > 0 ? (
-          bookList.map((book, i) => {
-            return <Card book={book} key={`${i}${book.title}`} />;
-          })
-        ) : (
-          <p>loading..</p>
-        )}
+        {error && <Error message={error} />}
+          {bookList.length > 0 ? (
+            bookList.map((book, i) => {
+              return <Card book={book} key={`${i}${book.title}`} />;
+            })
+          ) : (
+            <p>loading..</p>
+          )}
       </div>
-      <Header setSearch={setSearch} searchHandler={searchHandler} />
+      <Header
+        setSearch={setSearch}
+        searchHandler={searchHandler}
+        publishFilterHandler={publishFilterHandler}
+      />
     </>
   );
 }
@@ -49,6 +58,7 @@ export default withRouter(ListPage);
 function searchBook(searchQuery, bookList) {
   const books = [...bookList];
   if (searchQuery === "") {
+    console.log(searchQuery);
     return books;
   }
   const filtered = books.filter(

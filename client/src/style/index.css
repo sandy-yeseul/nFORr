@@ -73,7 +73,7 @@ a {
   animation-fill-mode: forwards;
 }
 .HeaderStructure {
-  width: max-content;
+  width: 8vw;
   height: 50vh;
   margin-top: 30vh;
   margin-right: 15vw;
