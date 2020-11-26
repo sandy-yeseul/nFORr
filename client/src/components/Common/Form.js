@@ -23,7 +23,7 @@ export default function Form({ fields, buttonText, handler }) {
     e.preventDefault();
     const formData = new FormData();
     Object.keys(fieldValues).map((field) => {
-      formData.append(`${field.toString()}`, fieldValues.field);
+      formData.append(`${field.toString()}`, fieldValues[field]);
       return formData;
     });
     if (image) {
