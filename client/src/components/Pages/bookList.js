@@ -1,16 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { callDb, setIdTitleList, filterPublished } from "../../utilities";
+import { callDb } from "../../utilities";
 import { withRouter } from "react-router-dom";
-import { List, Error, Header, Card } from "../Common";
-import Button from "@material-ui/core/Button";
-import ButtonGroup from "@material-ui/core/ButtonGroup";
+import { Error, Header, Card } from "../Common";
 
 function ListPage() {
-  const [Data, setData] = useState([]);
   const [Books, setBooks] = useState([]);
   const [error, setError] = useState(null);
-  const [published, setPublished] = useState(true);
-  const [img, setImg] = useState(null);
   useEffect(() => {
     const dbElement = {
       method: "GET",
@@ -18,21 +13,19 @@ function ListPage() {
     };
     callDb(dbElement)
       .then((res) => {
-        setData(res.data);
-        const books = setIdTitleList(res.data);
         setBooks(res.data);
       })
       .catch((err) => setError(err.toString()));
   }, []);
-  const buttonHandler = () => {
-    const filteredBooks = filterPublished(Data, published);
-    const books = setIdTitleList(filteredBooks);
-    setBooks(books);
-    setPublished(!published);
-  };
-  const allButtonHandler = () => {
-    setBooks(setIdTitleList(Data));
-  };
+  // const buttonHandler = () => {
+  //   const filteredBooks = filterPublished(Data, published);
+  //   const books = setIdTitleList(filteredBooks);
+  //   setBooks(books);
+  //   setPublished(!published);
+  // };
+  // const allButtonHandler = () => {
+  //   setBooks(setIdTitleList(Data));
+  // };
   return (
     <>
       {error && <Error message={error} />}
@@ -57,7 +50,7 @@ function ListPage() {
       </ButtonGroup> */}
       <div className="BodyStructure">
         {Books.length>0 ?  Books.map(book =>{
-          return <Card imgSource={book.image} />
+          return <Card book={book} />
         }): <p>loading..</p>}
       </div>
       <Header className="HeaderStructure" />

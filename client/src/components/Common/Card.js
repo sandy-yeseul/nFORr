@@ -1,8 +1,7 @@
 import React from "react";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
 import CardActionArea from "@material-ui/core/CardActionArea";
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,23 +19,22 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function BookCard({ imgSource }) {
+export default function BookCard({ book }) {
   const classes = useStyles();
-  const theme = useTheme();
 
   return (
     <>
       <Card className={classes.root}>
-        <CardActionArea className={classes.details}>
+        <CardActionArea className={classes.details} href={`/books/${book._id}`}>
           <img
             alt="Book Cover"
-            src={`http://localhost:3028/${imgSource}`}
+            src={`http://localhost:3028/${book.image}`}
             className={classes.cover}
           />
           <CardContent className={classes.content}>
-            <h4>Title</h4>
-            <h5>Author</h5>
-            <span>Price</span>
+            <h4>{book.title}</h4>
+            <h5>{book.author}</h5>
+            <span>{book.price}</span>
           </CardContent>
         </CardActionArea>
       </Card>
