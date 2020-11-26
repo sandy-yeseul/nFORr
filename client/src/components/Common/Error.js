@@ -1,11 +1,9 @@
 import React from 'react'
 
-function Error(props) {
+export default function Error({message}) {
     return (
         <div style={{color: 'red'}}>
-            {props.message}
+            {message}
         </div>
     )
 }
-
-export default Error

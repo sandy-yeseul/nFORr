@@ -1,28 +1,26 @@
-import React from 'react';
-import {callDb} from '../../utilities';
-import {Button} from './index';
+import React, { useState } from "react";
+import { callDb } from "../../utilities";
+import { Button, Error } from "./index";
 
-function Delete(props) {
-    const id = props.id;
-    const deleteHandler= () =>{
-        const dbElement ={
-            method: "DELETE",
-            url: `http://localhost:3028/books/${id}`
-        }
-        callDb(dbElement)
-            .then((res) => {
-                props.movePage('/books')
-            })
-            .catch((err) => {
-                alert(err);
-                props.movePage('/books');
-            })
-    }
-    return (
-        <>
-            <Button handler={deleteHandler} value={'삭제하기'} />
-        </>
-    )
+export default function Delete({ id }) {
+  const [error, setError] = useState("");
+  const deleteHandler = () => {
+    const dbElement = {
+      method: "DELETE",
+      url: `http://localhost:3028/books/${id}`,
+    };
+    callDb(dbElement)
+      .then(() => {
+        window.location.assign("/books");
+      })
+      .catch((err) => {
+        setError(err);
+      });
+  };
+  return (
+    <>
+      <Button onClick={deleteHandler} text={"삭제하기"} />
+      {error && <Error message={error} />}
+    </>
+  );
 }
-
-export default Delete;

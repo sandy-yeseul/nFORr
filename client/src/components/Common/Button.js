@@ -1,9 +1,10 @@
-import React from 'react';
-import Button from '@material-ui/core/Button';
+import React from "react";
+import Button from "@material-ui/core/Button";
 
-function makeButton(props){
-   return(
-       <Button variant='contained' {...props}>{props.text}</Button>
-   )
+export default function MakeButton(props) {
+  return (
+    <Button variant="contained" {...props}>
+      {props.text}
+    </Button>
+  );
 }
-export {makeButton};
