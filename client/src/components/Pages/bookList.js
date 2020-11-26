@@ -10,7 +10,7 @@ function ListPage() {
   const [Books, setBooks] = useState([]);
   const [error, setError] = useState(null);
   const [published, setPublished] = useState(true);
-  const [img, setImg] = useState(null)
+  const [img, setImg] = useState(null);
   useEffect(() => {
     const dbElement = {
       method: "GET",
@@ -19,9 +19,8 @@ function ListPage() {
     callDb(dbElement)
       .then((res) => {
         setData(res.data);
-        setImg(res.data[6].image)
         const books = setIdTitleList(res.data);
-        setBooks(books);
+        setBooks(res.data);
       })
       .catch((err) => setError(err.toString()));
   }, []);
@@ -56,7 +55,11 @@ function ListPage() {
           미출판
         </Button>
       </ButtonGroup> */}
-      <div className="BodyStructure">{img != null?  <Card imgSource={img} /> : <p>loading..</p>}</div>
+      <div className="BodyStructure">
+        {Books.length>0 ?  Books.map(book =>{
+          return <Card imgSource={book.image} />
+        }): <p>loading..</p>}
+      </div>
       <Header className="HeaderStructure" />
     </>
   );
