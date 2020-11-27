@@ -6,10 +6,7 @@ import SearchIcon from "@material-ui/icons/Search";
 export default function Search({ setSearch, searchHandler }) {
   const classes = useStyles();
   const enter = (e) => {
-    if (e.keyCode === 13) {
-      e.preventDefault();
-      searchHandler();
-    }
+    searchHandler();
   };
   return (
     <div className={classes.search}>
@@ -23,7 +20,7 @@ export default function Search({ setSearch, searchHandler }) {
           input: classes.inputInput,
         }}
         onChange={(e) => setSearch(e.target.value)}
-        onKeyDown={e=>enter(e)}
+        onKeyUp={e=>enter(e)}
         inputProps={{ "aria-label": "search" }}
       />
     </div>

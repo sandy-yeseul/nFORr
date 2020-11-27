@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import Skeleton from '@material-ui/lab/Skeleton';
+import Skeleton from "@material-ui/lab/Skeleton";
 import { callDb } from "../../utilities";
 import { withRouter } from "react-router-dom";
 import { Error, Header, Card } from "../Common";
 
-function ListPage() {
+function BookListPage() {
   const [Books, setBooks] = useState([]);
   const [search, setSearch] = useState("");
   const [bookList, setBookList] = useState([]);
@@ -23,11 +23,6 @@ function ListPage() {
   }, []);
   const searchHandler = () => {
     const searchedList = searchBook(search, Books);
-    if (!searchedList) {
-      setError("Doesn't have that book");
-      setBookList(Books);
-      return;
-    }
     setBookList(searchedList);
     setError("");
   };
@@ -39,13 +34,13 @@ function ListPage() {
     <>
       <div className="BodyStructure">
         {error && <Error message={error} />}
-          {bookList.length > 0 ? (
-            bookList.map((book, i) => {
-              return <Card book={book} key={`${i}${book.title}`} />;
-            })
-          ) : (
-            <Skeleton variant="rect" width="300px" height="100px" />
-          )}
+        {bookList.length > 0 ? (
+          bookList.map((book, i) => {
+            return <Card book={book} key={`${i}${book.title}`} />;
+          })
+        ) : (
+          <Skeleton variant="rect" width="300px" height="100px" />
+        )}
       </div>
       <Header
         setSearch={setSearch}
@@ -55,21 +50,19 @@ function ListPage() {
     </>
   );
 }
-export default withRouter(ListPage);
+export default withRouter(BookListPage);
 function searchBook(searchQuery, bookList) {
   const books = [...bookList];
   if (searchQuery === "") {
-    console.log(searchQuery);
     return books;
   }
+  const queries = searchQuery.split(" ");
   const filtered = books.filter(
     (book) =>
       book.title.includes(searchQuery) ||
       book.author.includes(searchQuery) ||
       book.publisher.includes(searchQuery)
   );
-  console.log(filtered);
-  if (filtered.length < 1) return false;
   return filtered;
 }
 function filterPublish(published, bookList) {

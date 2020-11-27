@@ -3,7 +3,7 @@ import { withRouter, useParams } from "react-router-dom";
 import { Form, Header } from "../Common";
 import { callDb } from "../../utilities";
 
-function BookFormPage(props) {
+function AddBookPage(props) {
   const fields = {
     title: "",
     author: "",
@@ -35,4 +35,4 @@ function BookFormPage(props) {
     </>
   );
 }
-export default withRouter(BookFormPage);
+export default withRouter(AddBookPage);

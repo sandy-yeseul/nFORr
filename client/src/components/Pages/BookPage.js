@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { withRouter } from "react-router-dom";
 import { Delete, Detail, Error, Header, Button } from "../Common";
 
-function ViewBookPage(props) {
+function BookPage(props) {
   const [book, setBook] = useState(null);
   const [error, setError] = useState(null);
   const id = useParams().bookId;
@@ -42,4 +42,4 @@ function ViewBookPage(props) {
     // </div>
   );
 }
-export default withRouter(ViewBookPage);
+export default withRouter(BookPage);
