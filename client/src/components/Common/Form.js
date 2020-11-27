@@ -90,14 +90,28 @@ export default function Form({ fields, buttonText, handler }) {
             />
           );
         })}
-        <input
-          type="file"
-          onChange={(e) => setImage(e.target.files[0])}
-          id="photo"
-          file="photo"
-          accept=".gif, .jpg, .jpeg, .png"
-        />
-        <Button text={buttonText} onClick={(e) => submitHandler(e)} />
+        <Button
+          color="primary"
+          component="label"
+          className={classes.fileButton}
+        >
+          파일 선택하기
+          <input
+            type="file"
+            onChange={(e) => setImage(e.target.files[0])}
+            id="photo"
+            file="photo"
+            accept=".gif, .jpg, .jpeg, .png"
+            hidden
+          />
+        </Button>
+        <Button
+          color="secondary"
+          className={classes.submitButton}
+          onClick={(e) => submitHandler(e)}
+        >
+          {buttonText}
+        </Button>
       </form>
       {/* {errors && <Error message={errors} />} */}
     </>
@@ -107,9 +121,15 @@ const useStyles = makeStyles((theme) => ({
   root: {
     position: "relative",
     overflow: "hidden",
-    "& > *": {
-      margin: theme.spacing(3),
-      width: "max-content",
+    "& > div": {
+      margin: '25px'
     },
+  },
+  fileButton: {
+    margin: '25px'
+  },
+  submitButton: {
+    margin: theme.spacing(1),
+    float: "right",
   },
 }));

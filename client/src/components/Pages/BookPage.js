@@ -24,7 +24,7 @@ function BookPage(props) {
         {book != null ? (
           <>
             <Detail book={book} />
-            <Button text="Update" href={`/books/update/${id}`} />
+            <Button href={`/books/update/${id}`}>Update</Button>
             <Delete id={id} />
           </>
         ) : (

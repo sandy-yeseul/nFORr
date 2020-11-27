@@ -6,7 +6,7 @@ import { createMuiTheme, ThemeProvider } from "@material-ui/core";
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: "#F28613", // This is an orange looking color
+      main: "#7B763A", // This is an orange looking color
     },
     secondary: {
       main: "#ffcc80", //Another orange-ish color
@@ -22,16 +22,6 @@ const theme = createMuiTheme({
         borderColor: "#faf3e6",
       },
     },
-    MuiTextField:{
-      outlined:{
-        color: "#faf3e6",
-      }
-    },
-    MuiInputBase:{
-      outlined:{
-        color: "#faf3e6",
-      }
-    }
   }
 });
 ReactDOM.render(

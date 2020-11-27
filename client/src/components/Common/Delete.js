@@ -19,7 +19,7 @@ export default function Delete({ id }) {
   };
   return (
     <>
-      <Button onClick={deleteHandler} text={"삭제하기"} />
+      <Button onClick={deleteHandler}>삭제하기</Button>
       {error && <Error message={error} />}
     </>
   );

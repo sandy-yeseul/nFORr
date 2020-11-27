@@ -16,8 +16,9 @@ export default function FormFiled(props) {
         <TextField
           {...others}
           className={classes.textField}
-          InputProps={{ inputProps: {min } }}  
-          InputLabelProps ={{shrink: shrink}}
+          InputProps={{ inputProps: {min }, style: {color: '#faf3e6'} }}  
+          InputLabelProps ={{shrink: shrink, style:{color: '#7B763A'}}}
+          color="primary"
           variant="outlined"
           {...(error && { error: true, helperText: error })}
         />
@@ -27,7 +28,6 @@ export default function FormFiled(props) {
 }
 const useStyles = makeStyles((theme) => ({
   textField: {
-    margin: theme.spacing(1),
     width: 200,
     color: "#faf3e6",
   },
