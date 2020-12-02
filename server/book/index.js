@@ -1,8 +1,8 @@
-const {v4 :uuidv4 } = require('uuid');
+const { v4: uuidv4 } = require("uuid");
 
-function BuildMakeBook(generateId){
+function BuildMakeBook(generateId) {
   return function makeBook({
-    _id ="",
+    _id = "",
     title,
     author,
     publisher = "",
@@ -10,6 +10,7 @@ function BuildMakeBook(generateId){
     seller = "",
     price = "",
     image = "",
+    isPublished = 0,
   } = {}) {
     if (!title) {
       throw new Error("Book must have Title");
@@ -17,19 +18,24 @@ function BuildMakeBook(generateId){
     if (!author) {
       throw new Error("Book must have Author");
     }
-    if (price && !(isNumber(price))) {
+    if (price && !isNumber(price)) {
       throw new Error("Price must be a valid number");
     }
     if (isNumber(price) && price < 0) {
       throw new Error("Price must be more than 0");
     }
-    if (publishDate && !(isDate(publishDate))) {
+    if (publishDate && !isDate(publishDate)) {
       throw new Error("Publish date must be valid form");
     }
     if (isDate(publishDate)) {
       publishDate = formatDate(new Date(publishDate));
     }
-    if(!_id) {_id = generateId();}
+    if (!_id) {
+      _id = generateId();
+    }
+    if (publisher) {
+      isPublished = 1;
+    }
     const book = Object.freeze({
       _id: _id,
       title: title,
@@ -38,10 +44,11 @@ function BuildMakeBook(generateId){
       publishDate: publishDate,
       seller: seller,
       price: price,
-      image: image
+      image: image,
+      isPublished: isPublished,
     });
     return book;
-  }
+  };
   function isNumber(str) {
     const number = Number(str);
     return !isNaN(number);
@@ -53,14 +60,14 @@ function BuildMakeBook(generateId){
   function formatDate(date) {
     var currentTime = new Date();
     var offset = currentTime.getTimezoneOffset();
-    var getDate = new Date(date.getTime() - offset * 60 *1000);
+    var getDate = new Date(date.getTime() - offset * 60 * 1000);
     const converted = getDate.toISOString().split("T")[0];
     return converted;
   }
 }
-function generateId(){
-  var uuid = uuidv4()
-  var id = uuid.replace(/-/g, '')
+function generateId() {
+  var uuid = uuidv4();
+  var id = uuid.replace(/-/g, "");
   return id;
 }
 module.exports = BuildMakeBook(generateId);

@@ -7,7 +7,11 @@ const bookSchema = mongoose.Schema({
     publishDate: String,
     seller: String,
     price: String,
-    image: String
+    image: String,
+    isPublished: {
+        type: Number,
+        default: 0
+    }
 });
 
 const Book = module.exports =mongoose.model('Book', bookSchema);
