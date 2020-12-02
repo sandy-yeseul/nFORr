@@ -13,6 +13,7 @@ function MakeExpressCallBack(controller) {
         return res;
       }
     } catch (err) {
+      console.log(err);
       res.send({
         err: err.message
       });
