@@ -1,4 +1,12 @@
-const {searchBook, getAllBook, getBook, addBook, updateBook, deleteBook} = require('../use-cases');
+const {
+  searchBook,
+  getAllBook,
+  getBook,
+  addBook,
+  updateBook,
+  deleteBook,
+  scrapeBook,
+} = require("../use-cases");
 function getBooksController(httpRequest) {
   const searchQuery = httpRequest.query.author;
   if (searchQuery) {
@@ -22,6 +30,9 @@ function deleteBookController(httpRequest) {
   const id = httpRequest.params.bookId;
   return deleteBook(id);
 }
+function scrapeBookController(httpRequest) {
+  return scrapeBook();
+}
 
 module.exports = {
   getBooksController,
@@ -29,4 +40,5 @@ module.exports = {
   postBookController,
   putBookController,
   deleteBookController,
+  scrapeBookController,
 };

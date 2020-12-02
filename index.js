@@ -10,6 +10,7 @@ const {
   postBookController,
   putBookController,
   deleteBookController,
+  scrapeBookController,
 } = require("./server/controllers/index");
 
 const {makeDb} = require('./server/data-access/index');
@@ -47,5 +48,6 @@ app.get("/books/:bookId", callback(getBookController));
 app.post("/books", callback(postBookController));
 app.put("/books/:bookId", callback(putBookController));
 app.delete("/books/:bookId", callback(deleteBookController));
+app.get('/scrape', callback(scrapeBookController))
 
 app.listen(port, () => console.log(`Portfolio application on port ${port}`));

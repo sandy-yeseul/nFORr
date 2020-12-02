@@ -1,5 +1,6 @@
 const BookDb = require("../data-access/index");
 const makeBook = require("../book");
+const { scraper } = require("./scraper");
 
 const successOk = 200;
 const successCreate = 201;
@@ -70,6 +71,11 @@ async function deleteBook(id) {
     return formatData(err.message, badRequest);
   }
 }
+async function scrapeBook() {
+  const url = "https://github.com/puppeteer/puppeteer/issues/3643";
+  const sample = await scraper(url);
+  return formatData(sample, successOk);
+}
 module.exports = {
   searchBook,
   getAllBook,
@@ -77,6 +83,7 @@ module.exports = {
   addBook,
   updateBook,
   deleteBook,
+  scrapeBook,
 };
 
 function formatBooks(dbBooks) {
