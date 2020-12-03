@@ -33,7 +33,7 @@ function BookListPage() {
   return (
     <>
       <div className="BodyStructure">
-        <Sync />
+        {bookList.length > 0 && <Sync books={filterPublish(false, Books)} />}
         {error && <Error message={error} />}
         {bookList.length > 0 ? (
           bookList.map((book, i) => {

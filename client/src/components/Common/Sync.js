@@ -7,12 +7,12 @@ import { callDb } from "../../utilities";
 export default function Sync({ books }) {
   const [animate, setAnimate] = useState(0);
   const SyncHandler = async () => {
-    // const params = {
-    //   method: "POST",
-    //   url: `/scrape`,
-    //   data: books,
-    // };
-    // const result = await callDb(params);
+    const params = {
+      method: "POST",
+      url: `/scrape`,
+      body: books,
+    };
+    const result = await callDb(params);
   };
   return (
     <>
