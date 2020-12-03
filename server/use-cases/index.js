@@ -1,9 +1,10 @@
 const BookDb = require("../data-access/index");
 const makeBook = require("../book");
-const { scraper } = require("./scraper");
+const { findPublisher } = require("./scraper");
 
 const successOk = 200;
 const successCreate = 201;
+const noContent = 204;
 const badRequest = 400;
 
 async function searchBook(searchQuery) {
@@ -71,12 +72,24 @@ async function deleteBook(id) {
     return formatData(err.message, badRequest);
   }
 }
-async function scrapeBook() {
-  const title ="도레미파솔라시도"
-  
-  const oh = { title: "클린 코드", author: "로버트마틴" };
-  const sample = await scraper(oh);
-  return formatData(sample, successOk);
+async function scrapeBook(body) {
+  try {
+    const books = [];
+    body.forEach(async (book) => {
+      const publisherFound = await findPublisher(book);
+      if (publisherFound) books.push(formatBook(book));
+    });
+    if (books.length < 0) return formatData(null, noContent);
+    books.forEach(async(book) => {
+      const id = book._id;
+      delete book._id;
+      await BookDb.update(id, book);
+    })
+    return formatData(null, successOk);
+  } catch (err) {
+    console.log(err);
+    return formatData(err.message, badRequest);
+  }
 }
 module.exports = {
   searchBook,

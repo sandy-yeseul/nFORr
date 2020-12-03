@@ -58,6 +58,7 @@ function BuildMakeBook(generateId) {
     return !isNaN(date);
   }
   function formatDate(date) {
+    if (typeof date === "string") date = parseFloat(date);
     var currentTime = new Date();
     var offset = currentTime.getTimezoneOffset();
     var getDate = new Date(date.getTime() - offset * 60 * 1000);

@@ -8,10 +8,7 @@ const bookSchema = mongoose.Schema({
     seller: String,
     price: String,
     image: String,
-    isPublished: {
-        type: Number,
-        default: 0
-    }
+    isPublished: Number,
 });
 
 const Book = module.exports =mongoose.model('Book', bookSchema);
