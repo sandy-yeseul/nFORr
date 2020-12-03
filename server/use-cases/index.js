@@ -75,16 +75,19 @@ async function deleteBook(id) {
 async function scrapeBook(body) {
   try {
     const books = [];
-    body.forEach(async (book) => {
+    for(book of body){
       const publisherFound = await findPublisher(book);
-      if (publisherFound) books.push(formatBook(book));
-    });
-    if (books.length < 0) return formatData(null, noContent);
-    books.forEach(async(book) => {
+      console.log(publisherFound)
+      if (publisherFound !== null) books.push(await formatBook(publisherFound));
+    }
+    if (books.length < 1) return formatData(null, noContent);
+    for(book of books){
       const id = book._id;
-      delete book._id;
-      await BookDb.update(id, book);
-    })
+      let deleteId = {...book}
+      delete deleteId._id;
+      const updated = await BookDb.update(id, deleteId);
+      console.log(updated)
+    }
     return formatData(null, successOk);
   } catch (err) {
     console.log(err);
@@ -108,8 +111,8 @@ function formatBooks(dbBooks) {
   }
   return formattedBooks;
 }
-function formatBook(dbBook) {
-  return makeBook(dbBook);
+async function formatBook(dbBook) {
+  return await makeBook(dbBook);
 }
 function formatData(data, code) {
   return {

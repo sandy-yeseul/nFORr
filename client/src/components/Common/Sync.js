@@ -18,7 +18,13 @@ export default function Sync({ books }) {
       body: books,
     };
     const result = await callDb(params);
-    setContent(result.data)
+    if(result.status === 204){
+      setContent("Sadly there's no books that has been published")
+    }
+    if(result.status === 200){
+      setContent("OMG YOU JUST FOUND PUBLISHED BOOK! -CHECK IT OUT!")
+    }
+    console.log(result.status)
     setOpen(true)
   };
   return (

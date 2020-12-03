@@ -31,8 +31,7 @@ function deleteBookController(httpRequest) {
   return deleteBook(id);
 }
 function scrapeBookController(httpRequest) {
-  console.log(httpRequest.body)
-  return {body: null, code: 200}
+  return scrapeBook(httpRequest.body)
 }
 
 module.exports = {

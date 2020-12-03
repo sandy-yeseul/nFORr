@@ -28,7 +28,7 @@ function BuildMakeBook(generateId) {
       throw new Error("Publish date must be valid form");
     }
     if (isDate(publishDate)) {
-      publishDate = formatDate(new Date(publishDate));
+      publishDate = formatDate(new Date(parseFloat(publishDate)));
     }
     if (!_id) {
       _id = generateId();
@@ -54,11 +54,10 @@ function BuildMakeBook(generateId) {
     return !isNaN(number);
   }
   function isDate(str) {
-    const date = new Date(str);
+    const date = new Date(parseFloat(str));
     return !isNaN(date);
   }
   function formatDate(date) {
-    if (typeof date === "string") date = parseFloat(date);
     var currentTime = new Date();
     var offset = currentTime.getTimezoneOffset();
     var getDate = new Date(date.getTime() - offset * 60 * 1000);

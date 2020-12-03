@@ -28,9 +28,9 @@ async function findPublisher(bookSearched) {
         title: title,
         author: author,
         publisher: publisher,
-        publishDate: publishDate,
+        publishDate: publishDate.toString(),
         price: price,
-        id: bookSearched._id,
+        _id: bookSearched._id,
       };
       if (
         rmBlank(title) === rmBlank(bookSearched.title) &&
