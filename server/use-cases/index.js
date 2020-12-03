@@ -73,7 +73,9 @@ async function deleteBook(id) {
 }
 async function scrapeBook() {
   const title ="도레미파솔라시도"
-  const sample = await scraper(title);
+  
+  const oh = { title: "클린 코드", author: "로버트마틴" };
+  const sample = await scraper(oh);
   return formatData(sample, successOk);
 }
 module.exports = {

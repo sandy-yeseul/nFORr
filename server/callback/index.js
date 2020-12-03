@@ -14,7 +14,7 @@ function MakeExpressCallBack(controller) {
       }
     } catch (err) {
       console.log(err);
-      res.send({
+      res.status(500).send({
         err: err.message
       });
       return res;
