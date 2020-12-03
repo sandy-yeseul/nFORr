@@ -8,6 +8,7 @@ import Detail from './Detail';
 import Error from './Error';
 import Card from './Card';
 import FormField from './FormField';
-import Search from './Search'
+import Search from './Search';
+import Sync from './Sync';
 
-export {Search, Header,Footer, Button, Delete, List, Form, Detail, Error, Card, FormField};
+export {Sync, Search, Header,Footer, Button, Delete, List, Form, Detail, Error, Card, FormField};

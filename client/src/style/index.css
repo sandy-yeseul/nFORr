@@ -63,11 +63,11 @@ a {
   border-radius: 4px;
   float: left;
 }
-.BodyAnimation{
+.BodyAnimation {
   animation: bodyShowUp 3s;
   animation-fill-mode: forwards;
 }
-.HeaderAnimation{
+.HeaderAnimation {
   opacity: 0;
   animation: headerShowUp 3s 1s;
   animation-fill-mode: forwards;
@@ -82,6 +82,14 @@ a {
   color: #272625 !important;
   float: right;
   position: relative;
+}
+.Sync[animate='1'] {
+  animation: Syncing 2s 1;
+  animation-timing-function: ease-in-out;
+}
+@keyframes Syncing{
+  from{transform: rotate(0deg)}
+  to{transform: rotate(360deg)}
 }
 @keyframes bodyShowUp {
   from {

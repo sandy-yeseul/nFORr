@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Skeleton from "@material-ui/lab/Skeleton";
 import { callDb } from "../../utilities";
 import { withRouter } from "react-router-dom";
-import { Error, Header, Card } from "../Common";
+import { Error, Header, Card, Sync } from "../Common";
 
 function BookListPage() {
   const [Books, setBooks] = useState([]);
@@ -12,7 +12,7 @@ function BookListPage() {
   useEffect(() => {
     const dbElement = {
       method: "GET",
-      url: "http://localhost:3028/books",
+      url: "/books",
     };
     callDb(dbElement)
       .then((res) => {
@@ -33,6 +33,7 @@ function BookListPage() {
   return (
     <>
       <div className="BodyStructure">
+        <Sync />
         {error && <Error message={error} />}
         {bookList.length > 0 ? (
           bookList.map((book, i) => {

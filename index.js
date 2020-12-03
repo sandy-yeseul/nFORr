@@ -48,6 +48,6 @@ app.get("/books/:bookId", callback(getBookController));
 app.post("/books", callback(postBookController));
 app.put("/books/:bookId", callback(putBookController));
 app.delete("/books/:bookId", callback(deleteBookController));
-app.get('/scrape', callback(scrapeBookController))
+app.post('/scrape', callback(scrapeBookController))
 
 app.listen(port, () => console.log(`Portfolio application on port ${port}`));
