@@ -77,7 +77,6 @@ async function scrapeBook(body) {
     const books = [];
     for(book of body){
       const publisherFound = await findPublisher(book);
-      console.log(publisherFound)
       if (publisherFound !== null) books.push(await formatBook(publisherFound));
     }
     if (books.length < 1) return formatData(null, noContent);
@@ -86,7 +85,6 @@ async function scrapeBook(body) {
       let deleteId = {...book}
       delete deleteId._id;
       const updated = await BookDb.update(id, deleteId);
-      console.log(updated)
     }
     return formatData(null, successOk);
   } catch (err) {

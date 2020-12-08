@@ -24,7 +24,6 @@ export default function Sync({ books }) {
     if(result.status === 200){
       setContent("OMG YOU JUST FOUND PUBLISHED BOOK! -CHECK IT OUT!")
     }
-    console.log(result.status)
     setOpen(true)
   };
   return (
